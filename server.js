@@ -12,18 +12,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Serve assets from NAS
-app.use('/assets/images', express.static('/mnt/nas/github_munitnam/sites/chiaramanenti.com/selection'));
-app.use('/assets/fonts', express.static('/mnt/nas/github_munitnam/sites/chiaramanenti.com/fonts'));
-app.use('/assets/audio', express.static('/mnt/nas/github_munitnam/sites/chiaramanenti.com/selection/audio'));
-app.use('/assets/bio_en.txt', (req, res) => {
-    res.sendFile('/mnt/nas/github_munitnam/sites/chiaramanenti.com/selection/bio_en.txt');
-});
+// Serve assets - these are now in public/assets
+// No need for separate static routes since express.static('public') handles it all
 
 // API: Get carousel images
 app.get('/api/carousel-images', async (req, res) => {
     try {
-        const carouselPath = '/mnt/nas/github_munitnam/sites/chiaramanenti.com/selection/scoring_carousel';
+        const carouselPath = path.join(__dirname, 'public/assets/images/scoring_carousel');
         const files = await fs.readdir(carouselPath);
         const imageFiles = files.filter(file => 
             file.match(/\.(jpg|jpeg|png|gif|webp)$/i)
@@ -44,7 +39,7 @@ app.get('/api/carousel-images', async (req, res) => {
 // API: Get audio files
 app.get('/api/audio-files', async (req, res) => {
     try {
-        const audioPath = '/mnt/nas/github_munitnam/sites/chiaramanenti.com/selection/audio';
+        const audioPath = path.join(__dirname, 'public/assets/audio');
         const files = await fs.readdir(audioPath);
         const audioFiles = files.filter(file => file.endsWith('.mp3'));
         
