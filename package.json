@@ -1,0 +1,25 @@
+{
+  "name": "chiaramanenti.com",
+  "version": "1.0.0",
+  "description": "Chiara Manenti - Film Composer & Session Guitarist Portfolio Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "portfolio",
+    "music",
+    "composer",
+    "guitarist"
+  ],
+  "author": "Julien Muraccioli",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "nodemailer": "^7.0.12"
+  }
+}

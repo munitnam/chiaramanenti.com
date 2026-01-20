@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chiara Manenti - Film Composer & Session Guitarist">
+    <title>Chiara Manenti - Composer & Guitarist</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+    <!-- Hero Image Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-image"></div>
+    </section>
+
+    <!-- Navigation Menu -->
+    <nav id="main-nav" class="main-nav hidden">
+        <ul>
+            <li><a href="#showreel" data-section="showreel">Showreel</a></li>
+            <li><a href="#scoring" data-section="scoring">Scoring</a></li>
+            <li><a href="#session-guitar" data-section="session-guitar">Session Guitar</a></li>
+            <li><a href="#about" data-section="about">About</a></li>
+            <li><a href="#contact" data-section="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Menu Button -->
+    <button id="menu-btn" class="menu-btn hidden">
+        <span class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <span class="menu-text">Menu</span>
+    </button>
+
+    <!-- Full Page Menu Overlay -->
+    <div id="menu-overlay" class="menu-overlay">
+        <button id="close-menu" class="close-menu">&times;</button>
+        <nav class="overlay-nav">
+            <ul>
+                <li><a href="#showreel" data-section="showreel">Showreel</a></li>
+                <li><a href="#scoring" data-section="scoring">Scoring</a></li>
+                <li><a href="#session-guitar" data-section="session-guitar">Session Guitar</a></li>
+                <li><a href="#about" data-section="about">About</a></li>
+                <li><a href="#contact" data-section="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Showreel Section -->
+        <section id="showreel" class="content-section">
+            <h2 class="section-title">Showreel</h2>
+            <div class="video-container">
+                <div id="showreel-video" class="youtube-embed"></div>
+            </div>
+        </section>
+
+        <!-- Parallax Image 1 -->
+        <div class="parallax-image parallax-scoring"></div>
+
+        <!-- Scoring Section -->
+        <section id="scoring" class="content-section">
+            <h2 class="section-title">Scoring</h2>
+            <div class="carousel-container">
+                <button class="carousel-btn prev" data-carousel="scoring">&lt;</button>
+                <div class="carousel" id="scoring-carousel">
+                    <!-- Carousel items will be loaded dynamically -->
+                </div>
+                <button class="carousel-btn next" data-carousel="scoring">&gt;</button>
+            </div>
+        </section>
+
+        <!-- Parallax Image 2 -->
+        <div class="parallax-image parallax-session"></div>
+
+        <!-- Session Guitar Section -->
+        <section id="session-guitar" class="content-section">
+            <h2 class="section-title">Session Guitar</h2>
+            <div class="session-content">
+                <div class="session-image">
+                    <img src="/assets/images/guitare_session.jpg" alt="Session Guitar">
+                    <div class="audio-player-container">
+                        <div id="audio-player" class="audio-player">
+                            <!-- Audio player will be generated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parallax Image 3 -->
+        <div class="parallax-image parallax-about"></div>
+
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <h2 class="section-title">About</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="/assets/images/about.jpg" alt="Chiara Manenti">
+                </div>
+                <div class="about-bio" id="bio-text">
+                    <!-- Bio will be loaded dynamically -->
+                </div>
+            </div>
+            <div class="logos-container">
+                <img src="/assets/images/logos/logo1.svg" alt="Logo 1" class="logo">
+                <img src="/assets/images/logos/logo2.svg" alt="Logo 2" class="logo">
+            </div>
+            <div class="cort-container">
+                <a href="https://www.cortguitars.com/artist/chiara-manenti/" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/images/cort.jpg" alt="Cort Guitars">
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-form-container">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Message" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    <div id="form-message" class="form-message"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Pictures by Michel Roux / Website by Julien Muraccioli - All rights reserved</p>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="video-modal">
+        <button class="close-modal">&times;</button>
+        <div class="modal-content">
+            <div id="modal-video" class="youtube-embed-modal"></div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
