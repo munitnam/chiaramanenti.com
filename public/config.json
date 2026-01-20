@@ -1,0 +1,32 @@
+{
+  "showreel": {
+    "videoId": "FBCdo1rn0sY",
+    "autoplay": true,
+    "mute": true
+  },
+  "scoringVideos": [
+    {
+      "thumbnail": "caminandes.jpg",
+      "title": "Caminandes",
+      "videoId": "PLACEHOLDER_1"
+    },
+    {
+      "thumbnail": "kairo-no-tabi.jpg",
+      "title": "Kairo No Tabi",
+      "videoId": "PLACEHOLDER_2"
+    },
+    {
+      "thumbnail": "kgt.jpg",
+      "title": "KGT",
+      "videoId": "PLACEHOLDER_3"
+    },
+    {
+      "thumbnail": "raven-song.jpg",
+      "title": "Raven Song",
+      "videoId": "PLACEHOLDER_4"
+    }
+  ],
+  "contact": {
+    "email": "chiaramanenticontact@gmail.com"
+  }
+}

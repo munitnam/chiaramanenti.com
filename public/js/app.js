@@ -1,5 +1,5 @@
 // Configuration
-const CONFIG = {
+let CONFIG = {
     showreelVideoId: 'FBCdo1rn0sY',
     contactEmail: 'chiaramanenticontact@gmail.com',
     bioPath: '/assets/bio_en.txt',
@@ -7,8 +7,22 @@ const CONFIG = {
     carouselPath: '/assets/images/scoring_carousel/'
 };
 
+// Load config from JSON file
+async function loadConfig() {
+    try {
+        const response = await fetch('/config.json');
+        const config = await response.json();
+        CONFIG.showreelVideoId = config.showreel.videoId;
+        CONFIG.contactEmail = config.contact.email;
+        return config;
+    } catch (error) {
+        console.warn('Could not load config.json, using defaults');
+        return null;
+    }
+}
+
 // Scoring carousel video URLs (to be updated later)
-const scoringVideos = [
+let scoringVideos = [
     { thumbnail: 'thumb1.jpg', videoId: 'VIDEO_ID_1' },
     { thumbnail: 'thumb2.jpg', videoId: 'VIDEO_ID_2' },
     { thumbnail: 'thumb3.jpg', videoId: 'VIDEO_ID_3' },
@@ -27,7 +41,13 @@ let currentAudioPlaying = null;
 let menuOpen = false;
 
 // Initialize on DOM load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load configuration first
+    const config = await loadConfig();
+    if (config && config.scoringVideos) {
+        scoringVideos = config.scoringVideos;
+    }
+    
     initScrollEffects();
     initMenu();
     initShowreel();
