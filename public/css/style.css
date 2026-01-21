@@ -590,7 +590,9 @@ body {
     gap: 3rem;
     margin-bottom: 0;
     align-items: center;
-    max-width: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .about-image img {
