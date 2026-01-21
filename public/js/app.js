@@ -246,31 +246,33 @@ function initCarousel() {
         carousel.scrollBy({ left: 650, behavior: 'smooth' });
     });
 
-    // Auto-slide carousel every 4 seconds
-    let autoSlideInterval = setInterval(() => {
-        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-        if (carousel.scrollLeft >= maxScroll) {
-            carousel.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            carousel.scrollBy({ left: 650, behavior: 'smooth' });
-        }
-    }, 4000);
+    // Continuous auto-slide
+    let animationFrame;
+    let isPaused = false;
+    const slideSpeed = 0.5; // pixels per frame
 
-    // Pause auto-slide on hover
-    carousel.addEventListener('mouseenter', () => {
-        clearInterval(autoSlideInterval);
-    });
-
-    // Resume auto-slide on mouse leave
-    carousel.addEventListener('mouseleave', () => {
-        autoSlideInterval = setInterval(() => {
+    function continuousSlide() {
+        if (!isPaused) {
             const maxScroll = carousel.scrollWidth - carousel.clientWidth;
             if (carousel.scrollLeft >= maxScroll) {
-                carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                carousel.scrollLeft = 0;
             } else {
-                carousel.scrollBy({ left: 650, behavior: 'smooth' });
+                carousel.scrollLeft += slideSpeed;
             }
-        }, 4000);
+        }
+        animationFrame = requestAnimationFrame(continuousSlide);
+    }
+
+    continuousSlide();
+
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => {
+        isPaused = true;
+    });
+
+    // Resume on mouse leave
+    carousel.addEventListener('mouseleave', () => {
+        isPaused = false;
     });
 
 }
