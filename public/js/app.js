@@ -195,12 +195,16 @@ function initCarousel() {
     
     const buildCarouselItems = (items) => {
         carousel.innerHTML = '';
-        items.forEach((video, index) => {
+        
+        // Create items 3 times for infinite scroll effect
+        const tripleItems = [...items, ...items, ...items];
+        
+        tripleItems.forEach((video, index) => {
             const item = document.createElement('div');
             item.className = 'carousel-item';
             item.setAttribute('role', 'button');
             item.setAttribute('tabindex', '0');
-            item.innerHTML = `<img src="${CONFIG.carouselPath}${video.thumbnail}" alt="Scoring ${index + 1}">`;
+            item.innerHTML = `<img src="${CONFIG.carouselPath}${video.thumbnail}" alt="Scoring ${(index % items.length) + 1}">`;
             item.addEventListener('click', () => {
                 if (!video.videoId) return;
                 openVideoModal(video.videoId);
@@ -213,6 +217,11 @@ function initCarousel() {
             });
             carousel.appendChild(item);
         });
+        
+        // Start from middle set
+        setTimeout(() => {
+            carousel.scrollLeft = carousel.scrollWidth / 3;
+        }, 100);
     };
     
     // Prefer config.json to ensure correct video IDs and ordering
@@ -249,15 +258,18 @@ function initCarousel() {
     // Continuous auto-slide
     let animationFrame;
     let isPaused = false;
-    const slideSpeed = 0.5; // pixels per frame
+    const slideSpeed = 1; // pixels per frame
 
     function continuousSlide() {
         if (!isPaused) {
-            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-            if (carousel.scrollLeft >= maxScroll) {
-                carousel.scrollLeft = 0;
-            } else {
-                carousel.scrollLeft += slideSpeed;
+            carousel.scrollLeft += slideSpeed;
+            
+            // Reset to middle when reaching end
+            const oneThirdScroll = carousel.scrollWidth / 3;
+            const twoThirdScroll = (carousel.scrollWidth / 3) * 2;
+            
+            if (carousel.scrollLeft >= twoThirdScroll) {
+                carousel.scrollLeft = oneThirdScroll;
             }
         }
         animationFrame = requestAnimationFrame(continuousSlide);

@@ -349,11 +349,10 @@ body {
     display: flex;
     gap: 2rem;
     overflow-x: auto;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     padding: 2rem 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    scroll-snap-type: x mandatory;
 }
 
 .carousel::-webkit-scrollbar {
