@@ -188,29 +188,41 @@ function loadYouTubeVideo(container, videoId, autoplay = false) {
 // Carousel
 function initCarousel() {
     const carousel = document.getElementById('scoring-carousel');
+    if (!carousel) return;
     
-    // Load carousel items dynamically
-    fetch('/api/carousel-images')
-        .then(res => res.json())
-        .then(images => {
-            images.forEach((img, index) => {
-                const item = document.createElement('div');
-                item.className = 'carousel-item';
-                item.innerHTML = `<img src="${CONFIG.carouselPath}${img.filename}" alt="Scoring ${index + 1}">`;
-                item.addEventListener('click', () => openVideoModal(img.videoId || scoringVideos[index]?.videoId));
-                carousel.appendChild(item);
+    const buildCarouselItems = (items) => {
+        carousel.innerHTML = '';
+        items.forEach((video, index) => {
+            const item = document.createElement('div');
+            item.className = 'carousel-item';
+            item.innerHTML = `<img src="${CONFIG.carouselPath}${video.thumbnail}" alt="Scoring ${index + 1}">`;
+            item.addEventListener('click', () => {
+                if (video.videoId) {
+                    openVideoModal(video.videoId);
+                }
             });
-        })
-        .catch(() => {
-            // Fallback: use static config
-            scoringVideos.forEach((video, index) => {
-                const item = document.createElement('div');
-                item.className = 'carousel-item';
-                item.innerHTML = `<img src="${CONFIG.carouselPath}${video.thumbnail}" alt="Scoring ${index + 1}">`;
-                item.addEventListener('click', () => openVideoModal(video.videoId));
-                carousel.appendChild(item);
-            });
+            carousel.appendChild(item);
         });
+    };
+    
+    // Prefer config.json to ensure correct video IDs and ordering
+    if (scoringVideos && scoringVideos.length) {
+        buildCarouselItems(scoringVideos);
+    } else {
+        // Fallback: load filenames from API
+        fetch('/api/carousel-images')
+            .then(res => res.json())
+            .then(images => {
+                const items = images.map(img => ({
+                    thumbnail: img.filename,
+                    videoId: img.videoId
+                }));
+                buildCarouselItems(items);
+            })
+            .catch(() => {
+                // No-op if nothing to load
+            });
+    }
 
     // Carousel navigation
     const prevBtn = document.querySelector('.carousel-btn.prev');
@@ -223,6 +235,39 @@ function initCarousel() {
     nextBtn.addEventListener('click', () => {
         carousel.scrollBy({ left: 350, behavior: 'smooth' });
     });
+
+    enableCarouselDrag(carousel);
+}
+
+function enableCarouselDrag(carousel) {
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    carousel.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        carousel.classList.add('dragging');
+        startX = e.pageX;
+        scrollLeft = carousel.scrollLeft;
+        carousel.setPointerCapture(e.pointerId);
+    });
+
+    carousel.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const walk = e.pageX - startX;
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+
+    const stopDrag = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        carousel.classList.remove('dragging');
+        carousel.releasePointerCapture(e.pointerId);
+    };
+
+    carousel.addEventListener('pointerup', stopDrag);
+    carousel.addEventListener('pointercancel', stopDrag);
+    carousel.addEventListener('pointerleave', stopDrag);
 }
 
 // Video Modal

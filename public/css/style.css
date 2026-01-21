@@ -347,21 +347,14 @@ body {
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 2rem 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent-bronze) var(--bg-card);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
 }
 
 .carousel::-webkit-scrollbar {
-    height: 8px;
-}
-
-.carousel::-webkit-scrollbar-track {
-    background: var(--bg-card);
-}
-
-.carousel::-webkit-scrollbar-thumb {
-    background: var(--accent-bronze);
-    border-radius: 4px;
+    display: none;
 }
 
 .carousel-item {
@@ -370,6 +363,7 @@ body {
     transition: var(--transition-smooth);
     border-radius: 8px;
     overflow: hidden;
+    scroll-snap-align: center;
 }
 
 .carousel-item:hover {
@@ -381,6 +375,10 @@ body {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.carousel.dragging {
+    cursor: grabbing;
 }
 
 .carousel-btn {
