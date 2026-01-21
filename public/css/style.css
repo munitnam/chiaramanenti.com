@@ -82,7 +82,7 @@ body {
 .scroll-arrow {
     position: absolute;
     bottom: 3rem;
-    left: 3rem;
+    right: 3rem;
     z-index: 10;
     color: var(--text-gold);
     animation: bounce 2s infinite;
