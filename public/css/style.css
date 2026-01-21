@@ -586,18 +586,16 @@ body {
 
 .about-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     gap: 3rem;
     margin-bottom: 0;
     align-items: center;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 100%;
 }
 
 .about-image img {
     width: 100%;
-    max-width: 600px;
+    max-width: none;
     height: auto;
     border-radius: 8px;
 }
