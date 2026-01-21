@@ -570,7 +570,7 @@ body {
 
 /* About Section */
 .about-section {
-    background: rgba(39, 55, 54, 0.95);
+    background: var(--bg-dark);
     padding: 4rem 2rem;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
@@ -595,6 +595,7 @@ body {
 
 .about-image img {
     width: 100%;
+    max-width: 600px;
     height: auto;
     border-radius: 8px;
 }
