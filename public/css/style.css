@@ -615,6 +615,8 @@ body {
     margin-right: calc(50% - 50vw);
     width: 100vw;
     max-width: 100vw;
+    position: relative;
+    z-index: 2;
 }
 
 .awards-section::before,
