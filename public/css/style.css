@@ -292,6 +292,32 @@ body {
     z-index: 1;
 }
 
+.content-section::before {
+    content: '';
+    position: fixed;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, var(--bg-dark));
+    z-index: -1;
+    pointer-events: none;
+}
+
+.content-section::after {
+    content: '';
+    position: fixed;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100px;
+    background: linear-gradient(to top, transparent, var(--bg-dark));
+    z-index: -1;
+    pointer-events: none;
+}
+
 .section-title {
     font-size: 3rem;
     color: var(--text-gold);
