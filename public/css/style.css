@@ -558,7 +558,7 @@ body {
 }
 
 .logo {
-    height: 200px;
+    height: 400px;
     width: auto;
     filter: brightness(0) invert(1);
     transition: var(--transition-smooth);
@@ -763,7 +763,7 @@ body {
     }
     
     .logo {
-        height: 120px;
+        height: 240px;
     }
     
     .cort-container img {
