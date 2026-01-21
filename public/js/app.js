@@ -177,7 +177,10 @@ function initShowreel() {
 // YouTube Video Loader
 function loadYouTubeVideo(container, videoId, autoplay = false) {
     const iframe = document.createElement('iframe');
-    iframe.src = `https://www.youtube.com/embed/${videoId}${autoplay ? '?autoplay=1&mute=1' : ''}`;
+    const params = autoplay 
+        ? '?autoplay=1&mute=1&enablejsapi=1' 
+        : '?autoplay=1&enablejsapi=1&rel=0';
+    iframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     iframe.frameBorder = '0';
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     iframe.allowFullscreen = true;
