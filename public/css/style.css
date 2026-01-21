@@ -141,13 +141,13 @@ body {
     top: 2rem;
     left: 2rem;
     z-index: 950;
-    background: rgba(39, 55, 54, 0.9);
-    border: 2px solid var(--accent-bronze);
-    padding: 0.8rem 1.5rem;
+    background: transparent;
+    border: none;
+    padding: 1rem 2rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 1rem;
     border-radius: 8px;
     transition: var(--transition-smooth);
     opacity: 0;
@@ -166,35 +166,34 @@ body {
 }
 
 .menu-btn:hover {
-    background: var(--accent-bronze);
-    transform: translateY(0) scale(1.05);
+    transform: translateY(0) scale(1.1);
 }
 
 .menu-icon {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
 }
 
 .menu-icon span {
-    width: 25px;
-    height: 2px;
+    width: 35px;
+    height: 3px;
     background: var(--text-gold);
     transition: var(--transition-smooth);
 }
 
 .menu-btn:hover .menu-icon span {
-    background: var(--text-white);
+    background: var(--accent-bronze);
 }
 
 .menu-text {
     color: var(--text-gold);
-    font-size: 1rem;
+    font-size: 1.3rem;
     transition: var(--transition-smooth);
 }
 
 .menu-btn:hover .menu-text {
-    color: var(--text-white);
+    color: var(--accent-bronze);
 }
 
 /* Menu Overlay */
@@ -317,6 +316,21 @@ body {
     background: linear-gradient(to top, transparent, var(--bg-dark));
     z-index: -1;
     pointer-events: none;
+}
+
+.scoring-section {
+    background: rgba(15, 20, 20, 0.95);
+    margin-left: calc(50% - 50vw);
+    width: 100vw;
+    padding-left: calc(50vw - 700px);
+    padding-right: calc(50vw - 700px);
+}
+
+@media (max-width: 1400px) {
+    .scoring-section {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
 
 .section-title {
