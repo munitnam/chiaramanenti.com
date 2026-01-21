@@ -617,6 +617,11 @@ body {
     max-width: 100vw;
 }
 
+.awards-section::before,
+.awards-section::after {
+    display: none;
+}
+
 .logos-cort-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
