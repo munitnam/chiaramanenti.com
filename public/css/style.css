@@ -569,22 +569,6 @@ body {
 }
 
 /* About Section */
-.about-section {
-    background: rgba(39, 55, 54, 0.95);
-    padding: 4rem 2rem;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    width: 100vw;
-    max-width: 100vw;
-}
-
-.about-section .section-title,
-.about-section .about-content {
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -606,20 +590,23 @@ body {
     text-align: justify;
 }
 
+/* Awards Section */
+.awards-section {
+    background: rgba(39, 55, 54, 0.95);
+    padding: 4rem 2rem;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    width: 100vw;
+    max-width: 100vw;
+}
+
 .logos-cort-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
-    margin: 3rem 0;
-    padding: 0;
-    background: transparent;
-    margin-left: 0;
-    margin-right: 0;
-    width: auto;
     max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
 .logos-cort-container > * {
