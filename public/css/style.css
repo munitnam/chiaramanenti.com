@@ -84,10 +84,11 @@ body {
     bottom: 3rem;
     right: 3rem;
     z-index: 10;
-    color: var(--text-gold);
+    color: #ffffff;
     animation: bounce 2s infinite;
     cursor: pointer;
     transition: var(--transition-smooth);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
 }
 
 .scroll-arrow:hover {
