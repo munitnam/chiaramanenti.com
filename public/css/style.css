@@ -321,16 +321,18 @@ body {
 .scoring-section {
     background: rgba(15, 20, 20, 0.95);
     margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     width: 100vw;
-    padding-left: calc(50vw - 700px);
-    padding-right: calc(50vw - 700px);
+    max-width: 100vw;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
-@media (max-width: 1400px) {
-    .scoring-section {
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
+.scoring-section .section-title,
+.scoring-section .carousel {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .section-title {
