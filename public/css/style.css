@@ -336,9 +336,13 @@ body {
 /* Carousel */
 .carousel-container {
     position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 0 2.5rem;
+    display: grid;
+    grid-template-columns: 72px 1fr 72px;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .carousel {
@@ -382,18 +386,20 @@ body {
 }
 
 .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    position: static;
+    transform: none;
     background: rgba(164, 133, 87, 0.8);
     border: none;
     color: white;
     font-size: 2rem;
-    padding: 1rem 1.5rem;
+    width: 56px;
+    height: 56px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 999px;
     transition: var(--transition-smooth);
-    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .carousel-btn:hover {
@@ -401,11 +407,11 @@ body {
 }
 
 .carousel-btn.prev {
-    left: 0;
+    justify-self: start;
 }
 
 .carousel-btn.next {
-    right: 0;
+    justify-self: end;
 }
 
 /* Session Guitar */
@@ -742,6 +748,12 @@ body {
     .carousel-item {
         flex: 0 0 250px;
     }
+
+    .carousel-container {
+        grid-template-columns: 56px 1fr 56px;
+        padding: 0 1.5rem;
+        gap: 1rem;
+    }
     
     .parallax-image {
         background-attachment: scroll;
@@ -771,7 +783,14 @@ body {
     }
     
     .carousel-btn {
-        padding: 0.5rem 1rem;
-        font-size: 1.5rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+    }
+
+    .carousel-container {
+        grid-template-columns: 44px 1fr 44px;
+        padding: 0 1rem;
+        gap: 0.75rem;
     }
 }

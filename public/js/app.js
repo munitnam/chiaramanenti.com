@@ -195,11 +195,18 @@ function initCarousel() {
         items.forEach((video, index) => {
             const item = document.createElement('div');
             item.className = 'carousel-item';
+            item.setAttribute('role', 'button');
+            item.setAttribute('tabindex', '0');
             item.innerHTML = `<img src="${CONFIG.carouselPath}${video.thumbnail}" alt="Scoring ${index + 1}">`;
             item.addEventListener('click', () => {
-                if (video.videoId) {
-                    openVideoModal(video.videoId);
-                }
+                if (!video.videoId) return;
+                openVideoModal(video.videoId);
+            });
+            item.addEventListener('keydown', (e) => {
+                if (e.key !== 'Enter' && e.key !== ' ') return;
+                e.preventDefault();
+                if (!video.videoId) return;
+                openVideoModal(video.videoId);
             });
             carousel.appendChild(item);
         });
@@ -241,11 +248,15 @@ function initCarousel() {
 
 function enableCarouselDrag(carousel) {
     let isDragging = false;
+    let dragMoved = false;
     let startX = 0;
     let scrollLeft = 0;
 
     carousel.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0) return;
         isDragging = true;
+        dragMoved = false;
+        carousel.dataset.dragMoved = 'false';
         carousel.classList.add('dragging');
         startX = e.pageX;
         scrollLeft = carousel.scrollLeft;
@@ -255,6 +266,10 @@ function enableCarouselDrag(carousel) {
     carousel.addEventListener('pointermove', (e) => {
         if (!isDragging) return;
         const walk = e.pageX - startX;
+        if (Math.abs(walk) > 6) {
+            dragMoved = true;
+            carousel.dataset.dragMoved = 'true';
+        }
         carousel.scrollLeft = scrollLeft - walk;
     });
 
@@ -268,6 +283,14 @@ function enableCarouselDrag(carousel) {
     carousel.addEventListener('pointerup', stopDrag);
     carousel.addEventListener('pointercancel', stopDrag);
     carousel.addEventListener('pointerleave', stopDrag);
+
+    carousel.addEventListener('click', (e) => {
+        if (carousel.dataset.dragMoved === 'true') {
+            e.preventDefault();
+            e.stopPropagation();
+            carousel.dataset.dragMoved = 'false';
+        }
+    }, true);
 }
 
 // Video Modal
