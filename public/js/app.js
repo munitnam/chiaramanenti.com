@@ -63,25 +63,33 @@ function initScrollEffects() {
     const nav = document.getElementById('main-nav');
     const menuBtn = document.getElementById('menu-btn');
     const hero = document.getElementById('hero');
+    const showreel = document.getElementById('showreel');
     let lastScroll = 0;
 
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
         const heroHeight = hero.offsetHeight;
+        const showreelTop = showreel.offsetTop;
+        const showreelBottom = showreelTop + showreel.offsetHeight;
 
-        // Show menu button after hero section
-        if (scrollY > heroHeight - 100) {
+        // Show nav at top of showreel section, hide when scrolling past it
+        if (scrollY >= showreelTop - 100 && scrollY < showreelBottom - 100) {
+            nav.classList.remove('hidden');
+            nav.classList.add('visible');
+            menuBtn.classList.remove('visible');
+            menuBtn.classList.add('hidden');
+        } else if (scrollY >= showreelBottom - 100) {
+            // Show menu button after showreel section
             menuBtn.classList.remove('hidden');
             menuBtn.classList.add('visible');
             nav.classList.remove('visible');
             nav.classList.add('hidden');
         } else {
+            // Hide both in hero section
+            nav.classList.remove('visible');
+            nav.classList.add('hidden');
             menuBtn.classList.remove('visible');
             menuBtn.classList.add('hidden');
-            if (scrollY > 100) {
-                nav.classList.remove('hidden');
-                nav.classList.add('visible');
-            }
         }
 
         // Parallax effect for hero
