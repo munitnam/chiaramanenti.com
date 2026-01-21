@@ -243,18 +243,6 @@ function initCarousel() {
             });
     }
 
-    // Carousel navigation
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    const nextBtn = document.querySelector('.carousel-btn.next');
-
-    prevBtn.addEventListener('click', () => {
-        carousel.scrollBy({ left: -650, behavior: 'smooth' });
-    });
-
-    nextBtn.addEventListener('click', () => {
-        carousel.scrollBy({ left: 650, behavior: 'smooth' });
-    });
-
     // Continuous auto-slide
     let animationFrame;
     let isPaused = false;

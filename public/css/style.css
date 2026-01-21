@@ -353,6 +353,8 @@ body {
     padding: 2rem 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
 }
 
 .carousel::-webkit-scrollbar {
