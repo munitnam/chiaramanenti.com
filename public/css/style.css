@@ -44,16 +44,16 @@ body {
     width: 100%;
     height: 100%;
     background-image: url('/assets/images/top_image.jpg');
-    background-size: cover;
-    background-position: center;
+    background-size: 100% auto;
+    background-position: center top;
     background-attachment: fixed;
     transition: var(--transition-smooth);
 }
 
-/* Mobile/Portrait mode: prioritize height */
-@media (max-aspect-ratio: 1/1) {
+/* Mobile: use cover for better display */
+@media (max-width: 768px) {
     .hero-image {
-        background-size: auto 100%;
+        background-size: cover;
         background-position: center center;
     }
 }
