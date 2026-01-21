@@ -21,13 +21,12 @@
 }
 
 html {
-    scroll-behavior: auto;
-    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
     scroll-padding-top: 0;
 }
 
 html * {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -44,7 +43,6 @@ body {
     width: 100%;
     position: relative;
     overflow: hidden;
-    scroll-snap-align: start;
 }
 
 .hero-image {
@@ -277,7 +275,6 @@ body {
     justify-content: center;
     position: relative;
     z-index: 1;
-    scroll-snap-align: start;
 }
 
 .content-section::before {
@@ -331,7 +328,6 @@ body {
     background-position: center;
     background-attachment: fixed;
     position: relative;
-    scroll-snap-align: start;
 }
 
 .parallax-scoring {
