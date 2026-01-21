@@ -85,13 +85,6 @@ function initScrollEffects() {
             menuBtn.classList.add('hidden');
         }
 
-        // Parallax effect for hero
-        if (scrollY < heroHeight) {
-            const heroImage = document.querySelector('.hero-image');
-            heroImage.style.transform = `translateY(${scrollY * 0.5}px)`;
-            heroImage.style.opacity = 1 - (scrollY / heroHeight);
-        }
-
         // Parallax effect for section images
         const parallaxImages = document.querySelectorAll('.parallax-image');
         parallaxImages.forEach(img => {
