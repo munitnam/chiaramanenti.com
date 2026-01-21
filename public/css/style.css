@@ -354,7 +354,6 @@ body {
     scrollbar-width: none;
     -ms-overflow-style: none;
     scroll-snap-type: x mandatory;
-    cursor: grab;
 }
 
 .carousel::-webkit-scrollbar {
@@ -381,9 +380,6 @@ body {
     display: block;
 }
 
-.carousel.dragging {
-    cursor: grabbing;
-}
 
 .carousel-btn {
     position: static;
