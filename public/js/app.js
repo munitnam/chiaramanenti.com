@@ -132,11 +132,19 @@ function initMenu() {
             }
 
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
+                // Use scrollIntoView for dynamic positioning
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
+                
+                // Add small offset after scroll completes
+                setTimeout(() => {
+                    window.scrollBy({
+                        top: -100,
+                        behavior: 'smooth'
+                    });
+                }, 100);
             }
         });
     });
