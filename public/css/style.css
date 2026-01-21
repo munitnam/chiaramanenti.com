@@ -63,6 +63,22 @@ body {
     }
 }
 
+.hero-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    max-width: 800px;
+    width: 80%;
+}
+
+.hero-title img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+}
+
 /* Navigation */
 .main-nav {
     position: fixed;
