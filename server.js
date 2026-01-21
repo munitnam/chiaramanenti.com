@@ -43,8 +43,14 @@ app.get('/api/audio-files', async (req, res) => {
         const files = await fs.readdir(audioPath);
         const audioFiles = files.filter(file => file.endsWith('.mp3'));
         
+        // Custom title mapping
+        const titleMap = {
+            'Dune-on-Guitar.mp3': 'Dune',
+            'Strange-Deja-vu-cover-v7.mp3': 'Cover - Strange Déjà Vu (Dream Theater)'
+        };
+        
         const tracks = audioFiles.map((file, index) => ({
-            title: file.replace('.mp3', '').replace(/_/g, ' '),
+            title: titleMap[file] || file.replace('.mp3', '').replace(/_/g, ' '),
             filename: file
         }));
         
