@@ -71,22 +71,16 @@ function initScrollEffects() {
         const heroHeight = hero.offsetHeight;
         const showreelTop = showreel.offsetTop;
 
-        // Show nav at bottom of hero, hide when showreel starts to disappear
-        if (scrollY >= heroHeight - 100 && scrollY < showreelTop + 100) {
-            nav.classList.remove('hidden');
-            nav.classList.add('visible');
-            menuBtn.classList.remove('visible');
-            menuBtn.classList.add('hidden');
-        } else if (scrollY >= showreelTop + 100) {
-            // Show menu button when scrolling past showreel top
+        // Hide main nav completely, only show menu button after hero
+        nav.classList.remove('visible');
+        nav.classList.add('hidden');
+        
+        if (scrollY >= heroHeight - 100) {
+            // Show menu button after hero section
             menuBtn.classList.remove('hidden');
             menuBtn.classList.add('visible');
-            nav.classList.remove('visible');
-            nav.classList.add('hidden');
         } else {
-            // Hide both in hero section
-            nav.classList.remove('visible');
-            nav.classList.add('hidden');
+            // Hide menu button in hero section
             menuBtn.classList.remove('visible');
             menuBtn.classList.add('hidden');
         }
