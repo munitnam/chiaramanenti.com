@@ -239,11 +239,38 @@ function initCarousel() {
     const nextBtn = document.querySelector('.carousel-btn.next');
 
     prevBtn.addEventListener('click', () => {
-        carousel.scrollBy({ left: -350, behavior: 'smooth' });
+        carousel.scrollBy({ left: -650, behavior: 'smooth' });
     });
 
     nextBtn.addEventListener('click', () => {
-        carousel.scrollBy({ left: 350, behavior: 'smooth' });
+        carousel.scrollBy({ left: 650, behavior: 'smooth' });
+    });
+
+    // Auto-slide carousel every 4 seconds
+    let autoSlideInterval = setInterval(() => {
+        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+        if (carousel.scrollLeft >= maxScroll) {
+            carousel.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            carousel.scrollBy({ left: 650, behavior: 'smooth' });
+        }
+    }, 4000);
+
+    // Pause auto-slide on hover
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoSlideInterval);
+    });
+
+    // Resume auto-slide on mouse leave
+    carousel.addEventListener('mouseleave', () => {
+        autoSlideInterval = setInterval(() => {
+            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+            if (carousel.scrollLeft >= maxScroll) {
+                carousel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                carousel.scrollBy({ left: 650, behavior: 'smooth' });
+            }
+        }, 4000);
     });
 
 }
