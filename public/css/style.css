@@ -365,15 +365,6 @@ body {
     letter-spacing: 0.15em;
 }
 
-.section-title::after {
-    content: '';
-    display: block;
-    width: 100px;
-    height: 3px;
-    background: var(--accent-bronze);
-    margin: 1rem auto;
-}
-
 /* Parallax Images */
 .parallax-image {
     height: 60vh;
