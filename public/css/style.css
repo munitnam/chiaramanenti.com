@@ -113,13 +113,14 @@ body {
 }
 
 .hero-bottom-menu a {
-    font-family: 'Abel', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.2rem;
+    font-weight: 300;
     color: #ffffff;
     text-decoration: none;
     transition: var(--transition-smooth);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.15em;
 }
 
 .hero-bottom-menu a:hover {
