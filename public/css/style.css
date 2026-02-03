@@ -727,6 +727,7 @@ body {
 }
 
 .about-bio {
+    font-family: 'Montserrat', sans-serif;
     color: var(--text-white);
     font-size: 1.1rem;
     line-height: 1.8;
