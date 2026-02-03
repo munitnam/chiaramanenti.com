@@ -361,6 +361,7 @@ body {
     margin-bottom: 3rem;
     position: relative;
     font-weight: 300;
+    text-transform: uppercase;
 }
 
 .section-title::after {
