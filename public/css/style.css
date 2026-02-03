@@ -344,14 +344,14 @@ body {
     right: 2rem;
     background: none;
     border: none;
-    color: var(--text-gold);
+    color: #ffffff;
     font-size: 3rem;
     cursor: pointer;
     transition: var(--transition-smooth);
 }
 
 .close-menu:hover {
-    color: var(--accent-bronze);
+    color: #ffffff;
     transform: rotate(90deg);
 }
 
@@ -383,6 +383,7 @@ body {
     color: #ffffff;
     text-decoration: none;
     font-size: 2.5rem;
+    text-transform: uppercase;
     transition: var(--transition-smooth);
 }
 
