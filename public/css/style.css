@@ -293,22 +293,26 @@ body {
 .menu-icon span {
     width: 35px;
     height: 3px;
-    background: var(--text-gold);
+    background: #ffffff;
     transition: var(--transition-smooth);
 }
 
 .menu-btn:hover .menu-icon span {
-    background: var(--accent-bronze);
+    background: #ffffff;
 }
 
 .menu-text {
-    color: var(--text-gold);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: #ffffff;
     font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.095em;
     transition: var(--transition-smooth);
 }
 
 .menu-btn:hover .menu-text {
-    color: var(--accent-bronze);
+    color: #ffffff;
 }
 
 /* Menu Overlay */
