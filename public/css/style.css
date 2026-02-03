@@ -371,12 +371,19 @@ body {
 .parallax-image {
     height: 100vh;
     width: 100%;
-    background-size: cover;
+    background-size: auto 100%;
     background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
+}
+
+/* On narrow/portrait screens, ensure image fills height */
+@media (max-aspect-ratio: 3/2) {
+    .parallax-image {
+        background-size: auto 100vh;
+    }
 }
 
 .parallax-scoring {
