@@ -370,12 +370,14 @@ body {
 /* Parallax Images */
 .parallax-image {
     height: 60vh;
+    min-height: 400px;
     width: 100%;
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     position: relative;
+    overflow: hidden;
 }
 
 .parallax-scoring {
