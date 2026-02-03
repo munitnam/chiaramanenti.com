@@ -127,6 +127,44 @@ body {
     color: var(--text-gold);
 }
 
+/* Responsive menu for tablets and phones */
+@media (max-width: 1024px) {
+    .hero-bottom-menu {
+        padding: 2.5rem 1rem;
+    }
+    
+    .hero-bottom-menu ul {
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .hero-bottom-menu a {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-bottom-menu {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-bottom-menu ul {
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+    }
+    
+    .hero-bottom-menu li {
+        width: 100%;
+    }
+    
+    .hero-bottom-menu a {
+        font-size: 2rem;
+        display: block;
+        padding: 1rem;
+    }
+}
+
 .scroll-arrow {
     position: absolute;
     bottom: 3rem;
