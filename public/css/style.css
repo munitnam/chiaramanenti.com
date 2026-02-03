@@ -369,8 +369,7 @@ body {
 
 /* Parallax Images */
 .parallax-image {
-    height: 60vh;
-    min-height: 400px;
+    height: 100vh;
     width: 100%;
     background-size: cover;
     background-position: center center;
