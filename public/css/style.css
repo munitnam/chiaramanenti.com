@@ -12,6 +12,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Abel';
+    src: url('/assets/fonts/Abel-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -86,6 +93,37 @@ body {
     width: 100%;
     height: auto;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+}
+
+/* Hero Bottom Menu */
+.hero-bottom-menu {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.hero-bottom-menu ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hero-bottom-menu a {
+    font-family: 'Abel', sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hero-bottom-menu a:hover {
+    color: var(--text-gold);
 }
 
 .scroll-arrow {
