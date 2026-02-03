@@ -780,7 +780,7 @@ body {
 }
 
 .logo:hover {
-    filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(5deg);
+    filter: brightness(0) invert(1);
     transform: scale(1.05);
 }
 
@@ -798,7 +798,6 @@ body {
 
 .cort-container img:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(164, 133, 87, 0.3);
 }
 
 /* Contact Form */
