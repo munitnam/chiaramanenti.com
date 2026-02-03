@@ -362,7 +362,7 @@ body {
     position: relative;
     font-weight: 300;
     text-transform: uppercase;
-    letter-spacing: 0.069em;
+    letter-spacing: 0.15em;
 }
 
 .section-title::after {
