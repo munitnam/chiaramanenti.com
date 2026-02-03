@@ -385,7 +385,7 @@ body {
     text-decoration: none;
     font-size: 2.5rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.095em;
     transition: var(--transition-smooth);
 }
 
