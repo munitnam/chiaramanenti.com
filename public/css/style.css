@@ -130,38 +130,38 @@ body {
 /* Responsive menu for tablets and phones */
 @media (max-width: 1024px) {
     .hero-bottom-menu {
-        padding: 2.5rem 1rem;
+        padding: 2.5rem 1rem !important;
     }
     
     .hero-bottom-menu ul {
-        gap: 2rem;
-        flex-wrap: wrap;
+        gap: 2rem !important;
+        flex-wrap: wrap !important;
     }
     
     .hero-bottom-menu a {
-        font-size: 1.5rem;
+        font-size: 1.5rem !important;
     }
 }
 
 @media (max-width: 768px) {
     .hero-bottom-menu {
-        padding: 2rem 1rem;
+        padding: 2rem 1rem !important;
     }
     
     .hero-bottom-menu ul {
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
+        flex-direction: column !important;
+        gap: 1.2rem !important;
+        width: 100% !important;
     }
     
     .hero-bottom-menu li {
-        width: 100%;
+        width: 100% !important;
     }
     
     .hero-bottom-menu a {
-        font-size: 2rem;
-        display: block;
-        padding: 1rem;
+        font-size: 1.4rem !important;
+        display: block !important;
+        padding: 0.8rem !important;
     }
 }
 
