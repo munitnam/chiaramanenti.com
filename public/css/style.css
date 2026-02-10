@@ -812,25 +812,20 @@ body {
 }
 
 .logos-cort-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
     align-items: center;
     max-width: 100%;
     margin: 0 auto;
 }
 
-.logos-cort-container > * {
-    max-width: 700px;
-    margin: 0 auto;
-    width: 100%;
-}
-
 .logos-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    gap: 3rem;
+    gap: 4rem;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .logo {
@@ -845,12 +840,26 @@ body {
     transform: scale(1.05);
 }
 
+.cort-endorsement {
+    text-align: center;
+    width: 100%;
+}
+
+.endorsement-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--text-white);
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+}
+
 .cort-container {
     text-align: center;
 }
 
 .cort-container img {
-    max-width: 600px;
+    max-width: 300px;
     width: 100%;
     height: auto;
     border-radius: 8px;
@@ -1032,17 +1041,22 @@ body {
         grid-template-columns: 1fr;
     }
     
-    .logos-cort-container {
-        grid-template-columns: 1fr;
+    .logos-container {
+        flex-direction: row;
         gap: 2rem;
     }
     
     .logo {
-        height: 240px;
+        height: 200px;
+    }
+    
+    .endorsement-text {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
     }
     
     .cort-container img {
-        max-width: 400px;
+        max-width: 200px;
     }
     
     .carousel-item {
@@ -1062,12 +1076,6 @@ body {
     
     .hero-image {
         background-attachment: scroll;
-    }
-    
-    .logos-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
     }
     
     .content-section {
