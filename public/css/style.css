@@ -525,11 +525,12 @@ body {
     justify-content: center;
     position: relative;
     z-index: 1;
+    background-color: var(--bg-dark);
 }
 
 .content-section::before {
     content: '';
-    position: fixed;
+    position: absolute;
     top: -50px;
     left: 50%;
     transform: translateX(-50%);
@@ -542,7 +543,7 @@ body {
 
 .content-section::after {
     content: '';
-    position: fixed;
+    position: absolute;
     bottom: -50px;
     left: 50%;
     transform: translateX(-50%);
