@@ -1002,6 +1002,35 @@ body {
     display: block;
 }
 
+/* Mobile Social Icons (Below Contact Form) */
+.mobile-social-icons {
+    display: none;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.mobile-social-icons a img {
+    height: 32px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    transition: var(--transition-smooth);
+}
+
+.mobile-social-icons a:hover img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    transform: scale(1.15);
+}
+
 /* Video Modal */
 .video-modal {
     position: fixed;
@@ -1171,6 +1200,10 @@ body {
     
     .social-icons {
         display: none !important;
+    }
+    
+    .mobile-social-icons {
+        display: flex;
     }
     
     .social-icons a img {
