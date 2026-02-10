@@ -565,13 +565,14 @@ body {
 }
 
 /* Parallax Images */
-/* Background Image Sections - Static Dividers Between Content */
+/* Background Image Sections - Fixed Backgrounds Between Content */
 .parallax-image {
     width: 100%;
     height: 100vh;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     position: relative;
 }
 
@@ -582,11 +583,12 @@ body {
     }
 }
 
-/* Mobile optimization */
+/* Mobile - fixed attachment causes issues, use scroll */
 @media (max-width: 768px) {
     .parallax-image {
         height: 50vh;
         min-height: 400px;
+        background-attachment: scroll;
     }
 }
 
