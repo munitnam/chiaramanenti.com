@@ -844,10 +844,7 @@ body {
 .about-section {
     background: var(--bg-dark);
     padding: 4rem 2rem;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
     width: 100%;
-    max-width: 100%;
 }
 
 .about-section .section-title {
@@ -884,10 +881,7 @@ body {
 .awards-section {
     background: rgba(39, 55, 54, 0.95);
     padding: 4rem 2rem;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
     width: 100%;
-    max-width: 100%;
     position: relative;
     z-index: 2;
 }
