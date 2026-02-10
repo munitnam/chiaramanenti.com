@@ -318,7 +318,7 @@ body {
 /* Social Media Icons */
 .social-icons {
     position: fixed;
-    top: 2rem;
+    top: 3rem;
     right: 2rem;
     z-index: 950;
     display: flex;
