@@ -237,7 +237,7 @@ body {
 /* Menu Button */
 .menu-btn {
     position: fixed;
-    top: 50%;
+    top: 50px;
     left: 2rem;
     transform: translateY(-50%);
     z-index: 950;
@@ -326,7 +326,7 @@ body {
 /* Social Media Icons */
 .social-icons {
     position: fixed;
-    top: 50%;
+    top: 50px;
     right: 2rem;
     transform: translateY(-50%);
     z-index: 950;
@@ -1109,6 +1109,7 @@ body {
 
 @media (max-width: 480px) {
     .menu-btn {
+        top: 30px;
         left: 1rem;
         padding: 0.6rem 1rem;
     }
@@ -1118,6 +1119,7 @@ body {
     }
     
     .social-icons {
+        top: 30px;
         right: 1rem;
         gap: 0.6rem;
     }
