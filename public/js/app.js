@@ -100,17 +100,6 @@ function initScrollEffects() {
             topBlurBar.classList.add('hidden');
         }
 
-        // Parallax effect for section images
-        const parallaxImages = document.querySelectorAll('.parallax-image');
-        parallaxImages.forEach(img => {
-            const rect = img.getBoundingClientRect();
-            const offset = window.innerHeight;
-            if (rect.top < offset && rect.bottom > 0) {
-                const yPos = (rect.top - offset) * 0.3;
-                img.style.backgroundPositionY = `calc(50% + ${yPos}px)`;
-            }
-        });
-
         lastScroll = scrollY;
     });
 }

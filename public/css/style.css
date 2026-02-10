@@ -565,21 +565,38 @@ body {
 }
 
 /* Parallax Images */
+/* Parallax Images - Full Screen Background Sections */
 .parallax-image {
     height: 100vh;
     width: 100%;
     background-size: cover;
     background-position: center center;
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-repeat: no-repeat;
     position: relative;
-    overflow: hidden;
+    display: block;
 }
 
-/* Ensure proper sizing on mobile where fixed attachment can cause issues */
+/* Tablet optimization */
+@media (max-width: 1024px) {
+    .parallax-image {
+        height: 70vh;
+    }
+}
+
+/* Mobile optimization */
 @media (max-width: 768px) {
     .parallax-image {
-        background-attachment: scroll;
+        height: 50vh;
+        min-height: 400px;
+    }
+}
+
+/* Mobile landscape optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+    .parallax-image {
+        height: 80vh;
+        min-height: 300px;
     }
 }
 
@@ -1147,11 +1164,6 @@ body {
         grid-template-columns: 56px 1fr 56px;
         padding: 0 1.5rem;
         gap: 1rem;
-    }
-    
-    .parallax-image {
-        background-attachment: scroll;
-        height: 40vh;
     }
     
     .hero-image {
