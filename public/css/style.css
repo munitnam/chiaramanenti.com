@@ -237,8 +237,9 @@ body {
 /* Menu Button */
 .menu-btn {
     position: fixed;
-    top: 2rem;
+    top: 50%;
     left: 2rem;
+    transform: translateY(-50%);
     z-index: 950;
     background: transparent;
     border: none;
@@ -250,22 +251,21 @@ body {
     border-radius: 8px;
     transition: var(--transition-smooth);
     opacity: 0;
-    transform: translateY(-20px);
 }
 
 .menu-btn.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-50%);
 }
 
 .menu-btn.hidden {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-70%);
     pointer-events: none;
 }
 
 .menu-btn:hover {
-    transform: translateY(0) scale(1.1);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .menu-icon {
@@ -326,26 +326,26 @@ body {
 /* Social Media Icons */
 .social-icons {
     position: fixed;
-    top: 2rem;
+    top: 50%;
     right: 2rem;
+    transform: translateY(-50%);
     z-index: 950;
     display: flex;
     gap: 0.8rem;
     align-items: center;
-    padding: 1rem 0;
+    padding: 0;
     opacity: 0;
-    transform: translateY(-20px);
     transition: var(--transition-smooth);
 }
 
 .social-icons.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-50%);
 }
 
 .social-icons.hidden {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-70%);
     pointer-events: none;
 }
 
@@ -1109,7 +1109,6 @@ body {
 
 @media (max-width: 480px) {
     .menu-btn {
-        top: 1rem;
         left: 1rem;
         padding: 0.6rem 1rem;
     }
@@ -1119,9 +1118,7 @@ body {
     }
     
     .social-icons {
-        top: 1.2rem;
         right: 1rem;
-        padding: 0.6rem 0;
         gap: 0.6rem;
     }
     
