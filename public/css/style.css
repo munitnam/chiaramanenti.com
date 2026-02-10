@@ -315,6 +315,53 @@ body {
     color: #ffffff;
 }
 
+/* Social Media Icons */
+.social-icons {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 950;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: var(--transition-smooth);
+}
+
+.social-icons.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-icons.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.social-icons a img {
+    height: 32px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    transition: var(--transition-smooth);
+}
+
+.social-icons a:hover {
+    transform: scale(1.15);
+}
+
+.social-icons a:hover img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
 /* Menu Overlay */
 .menu-overlay {
     position: fixed;

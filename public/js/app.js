@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function initScrollEffects() {
     const nav = document.getElementById('main-nav');
     const menuBtn = document.getElementById('menu-btn');
+    const socialIcons = document.getElementById('social-icons');
     const hero = document.getElementById('hero');
     const showreel = document.getElementById('showreel');
     let lastScroll = 0;
@@ -76,13 +77,17 @@ function initScrollEffects() {
         nav.classList.add('hidden');
         
         if (scrollY >= heroHeight - 100) {
-            // Show menu button after hero section
+            // Show menu button and social icons after hero section
             menuBtn.classList.remove('hidden');
             menuBtn.classList.add('visible');
+            socialIcons.classList.remove('hidden');
+            socialIcons.classList.add('visible');
         } else {
-            // Hide menu button in hero section
+            // Hide menu button and social icons in hero section
             menuBtn.classList.remove('visible');
             menuBtn.classList.add('hidden');
+            socialIcons.classList.remove('visible');
+            socialIcons.classList.add('hidden');
         }
 
         // Parallax effect for section images
