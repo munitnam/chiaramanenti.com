@@ -530,11 +530,11 @@ body {
 
 .content-section::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
+    left: 0;
+    right: 0;
+    width: 100vw;
     height: 100px;
     background: linear-gradient(to bottom, transparent, var(--bg-dark));
     z-index: -1;
@@ -543,11 +543,11 @@ body {
 
 .content-section::after {
     content: '';
-    position: absolute;
+    position: fixed;
     bottom: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
+    left: 0;
+    right: 0;
+    width: 100vw;
     height: 100px;
     background: linear-gradient(to top, transparent, var(--bg-dark));
     z-index: -1;
