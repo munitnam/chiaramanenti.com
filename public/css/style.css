@@ -633,7 +633,8 @@ body {
 .carousel-container {
     position: relative;
     width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     padding: 0 2.5rem;
     display: grid;
     grid-template-columns: 72px 1fr 72px;
@@ -649,7 +650,11 @@ body {
     padding: 2rem 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
 }
 
 .carousel::-webkit-scrollbar {
