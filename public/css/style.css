@@ -534,7 +534,7 @@ body {
     top: -50px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100vw;
+    width: 100%;
     height: 100px;
     background: linear-gradient(to bottom, transparent, var(--bg-dark));
     z-index: -1;
@@ -547,7 +547,7 @@ body {
     bottom: -50px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100vw;
+    width: 100%;
     height: 100px;
     background: linear-gradient(to top, transparent, var(--bg-dark));
     z-index: -1;
@@ -657,8 +657,8 @@ body {
 /* Carousel */
 .carousel-container {
     position: relative;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+    width: 100%;
+    margin: 0 auto;
     padding: 0 2.5rem;
     display: grid;
     grid-template-columns: 72px 1fr 72px;
@@ -674,8 +674,7 @@ body {
     padding: 2rem 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+    width: 100%;
 }
 
 .carousel::-webkit-scrollbar {
@@ -847,8 +846,8 @@ body {
     padding: 4rem 2rem;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
 }
 
 .about-section .section-title {
@@ -887,8 +886,8 @@ body {
     padding: 4rem 2rem;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     position: relative;
     z-index: 2;
 }
