@@ -1129,7 +1129,7 @@ body {
 
 @media (max-width: 480px) {
     .menu-btn {
-        top: 10px;
+        top: 18px;
         left: 0.8rem;
         padding: 0.5rem 0.8rem;
     }
@@ -1152,7 +1152,9 @@ body {
     }
     
     .top-logo {
-        top: 8px;
+        top: 15px;
+        left: 55%;
+        transform: translateX(-50%);
     }
     
     .top-logo img {
