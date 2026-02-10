@@ -985,6 +985,8 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     transition: var(--transition-smooth);
+    resize: none;
+    min-height: 150px;
 }
 
 .form-group input:focus,
