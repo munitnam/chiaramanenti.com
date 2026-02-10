@@ -1043,6 +1043,14 @@ body {
         font-size: 1.8rem;
     }
     
+    .social-icons {
+        gap: 1rem;
+    }
+    
+    .social-icons a img {
+        height: 28px;
+    }
+    
     .about-content {
         grid-template-columns: 1fr;
     }
@@ -1095,6 +1103,16 @@ body {
         top: 1rem;
         left: 1rem;
         padding: 0.6rem 1rem;
+    }
+    
+    .social-icons {
+        top: 1rem;
+        right: 1rem;
+        gap: 0.8rem;
+    }
+    
+    .social-icons a img {
+        height: 24px;
     }
     
     .carousel-btn {
