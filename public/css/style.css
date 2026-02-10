@@ -149,6 +149,14 @@ body {
     }
 }
 
+/* Ensure desktop/tablet logo positioning stays correct for screens > 480px */
+@media (min-width: 481px) {
+    .top-logo {
+        top: 15px !important;
+        left: 50% !important;
+    }
+}
+
 .scroll-arrow {
     position: absolute;
     bottom: 3rem;
