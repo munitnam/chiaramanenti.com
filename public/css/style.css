@@ -650,9 +650,9 @@ body {
     padding: 2rem 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    width: calc(100vw - 17px);
+    margin-left: calc(50% - 50vw + 8.5px);
+    margin-right: calc(50% - 50vw + 8.5px);
     padding-left: 2.5rem;
     padding-right: 2.5rem;
 }
