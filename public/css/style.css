@@ -299,6 +299,34 @@ body {
     color: #ffffff;
 }
 
+/* Top Bar Logo */
+.top-logo {
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 950;
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.top-logo.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.top-logo.hidden {
+    opacity: 0;
+    transform: translate(-50%, -70%);
+    pointer-events: none;
+}
+
+.top-logo img {
+    height: 60px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
 /* Top Blur Bar */
 .top-blur-bar {
     position: fixed;
@@ -1118,10 +1146,12 @@ body {
         height: 60px;
     }
     
+    .top-logo img {
+        height: 40px;
+    }
+    
     .social-icons {
-        top: 30px;
-        right: 1rem;
-        gap: 0.6rem;
+        display: none !important;
     }
     
     .social-icons a img {

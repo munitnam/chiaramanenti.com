@@ -63,6 +63,7 @@ function initScrollEffects() {
     const nav = document.getElementById('main-nav');
     const menuBtn = document.getElementById('menu-btn');
     const socialIcons = document.getElementById('social-icons');
+    const topLogo = document.getElementById('top-logo');
     const topBlurBar = document.getElementById('top-blur-bar');
     const hero = document.getElementById('hero');
     const showreel = document.getElementById('showreel');
@@ -78,17 +79,21 @@ function initScrollEffects() {
         nav.classList.add('hidden');
         
         if (scrollY >= heroHeight - 100) {
-            // Show menu button, social icons, and blur bar after hero section
+            // Show menu button, logo, social icons, and blur bar after hero section
             menuBtn.classList.remove('hidden');
             menuBtn.classList.add('visible');
+            topLogo.classList.remove('hidden');
+            topLogo.classList.add('visible');
             socialIcons.classList.remove('hidden');
             socialIcons.classList.add('visible');
             topBlurBar.classList.remove('hidden');
             topBlurBar.classList.add('visible');
         } else {
-            // Hide menu button, social icons, and blur bar in hero section
+            // Hide menu button, logo, social icons, and blur bar in hero section
             menuBtn.classList.remove('visible');
             menuBtn.classList.add('hidden');
+            topLogo.classList.remove('visible');
+            topLogo.classList.add('hidden');
             socialIcons.classList.remove('visible');
             socialIcons.classList.add('hidden');
             topBlurBar.classList.remove('visible');
