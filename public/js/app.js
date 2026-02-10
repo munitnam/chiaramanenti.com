@@ -553,3 +553,93 @@ function initMobileFixedBackgrounds() {
 
 // Initialize mobile fixed backgrounds
 initMobileFixedBackgrounds();
+
+// Ambient Mode for Showreel Video
+async function initAmbientMode() {
+    try {
+        // Load color timeline
+        const response = await fetch('/assets/showreel_colors.json');
+        const colorTimeline = await response.json();
+        
+        const ambientGlow = document.getElementById('ambient-glow');
+        if (!ambientGlow) return;
+        
+        let updateInterval;
+        let showreelPlayer;
+        
+        // Wait for showreel player to be ready
+        const checkPlayer = setInterval(() => {
+            if (window.showreelPlayer && window.showreelPlayer.getCurrentTime) {
+                showreelPlayer = window.showreelPlayer;
+                clearInterval(checkPlayer);
+                setupAmbient();
+            }
+        }, 100);
+        
+        function setupAmbient() {
+            // Function to get color for current time
+            function getColorAtTime(time) {
+                const timeStr = Math.floor(time).toString();
+                
+                // Try exact match
+                if (colorTimeline[timeStr]) {
+                    return colorTimeline[timeStr];
+                }
+                
+                // Find nearest color (interpolation)
+                const times = Object.keys(colorTimeline).map(Number).sort((a, b) => a - b);
+                let nearestTime = times[0];
+                let minDiff = Math.abs(time - nearestTime);
+                
+                for (const t of times) {
+                    const diff = Math.abs(time - t);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        nearestTime = t;
+                    }
+                }
+                
+                return colorTimeline[nearestTime.toString()];
+            }
+            
+            // Update ambient color
+            function updateAmbient() {
+                showreelPlayer.getCurrentTime().then(currentTime => {
+                    const color = getColorAtTime(currentTime);
+                    if (color) {
+                        ambientGlow.style.background = `radial-gradient(ellipse at center, ${color} 0%, transparent 70%)`;
+                    }
+                }).catch(err => {
+                    console.log('Could not get current time:', err);
+                });
+            }
+            
+            // Listen to player state changes
+            showreelPlayer.addEventListener('onStateChange', (event) => {
+                if (event.data === YT.PlayerState.PLAYING) {
+                    // Video is playing - start ambient updates
+                    updateAmbient(); // Immediate update
+                    updateInterval = setInterval(updateAmbient, 500);
+                } else {
+                    // Video paused/stopped - stop updates
+                    if (updateInterval) {
+                        clearInterval(updateInterval);
+                    }
+                }
+            });
+            
+            // Initial check if video is already playing
+            showreelPlayer.getPlayerState().then(state => {
+                if (state === YT.PlayerState.PLAYING) {
+                    updateAmbient();
+                    updateInterval = setInterval(updateAmbient, 500);
+                }
+            });
+        }
+    } catch (error) {
+        console.log('Ambient mode not available:', error);
+    }
+}
+
+// Initialize ambient mode after page load
+setTimeout(initAmbientMode, 1000);

@@ -635,6 +635,22 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
+    position: relative;
+}
+
+/* Ambient Mode Background */
+.video-ambient-bg {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    right: -100px;
+    bottom: -100px;
+    border-radius: 16px;
+    filter: blur(60px);
+    opacity: 0.6;
+    transition: background 1.2s ease;
+    pointer-events: none;
+    z-index: -1;
 }
 
 .youtube-embed {
@@ -644,6 +660,7 @@ body {
     overflow: hidden;
     background: var(--bg-card);
     border-radius: 8px;
+    z-index: 1;
 }
 
 .youtube-embed iframe {
