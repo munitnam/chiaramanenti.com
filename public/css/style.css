@@ -318,11 +318,11 @@ body {
 /* Social Media Icons */
 .social-icons {
     position: fixed;
-    top: 3.2rem;
+    top: 3rem;
     right: 2rem;
     z-index: 950;
     display: flex;
-    gap: 1.2rem;
+    gap: 1rem;
     align-items: center;
     opacity: 0;
     transform: translateY(-20px);
@@ -348,7 +348,7 @@ body {
 }
 
 .social-icons a img {
-    height: 32px;
+    height: 28px;
     width: auto;
     filter: brightness(0) invert(1);
     transition: var(--transition-smooth);
