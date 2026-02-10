@@ -304,20 +304,22 @@ body {
     position: fixed;
     top: 50px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     z-index: 950;
     opacity: 0;
     transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
 }
 
 .top-logo.visible {
     opacity: 1;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 
 .top-logo.hidden {
     opacity: 0;
-    transform: translate(-50%, -70%);
+    transform: translate(-50%, -20px);
     pointer-events: none;
 }
 
