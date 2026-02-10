@@ -565,16 +565,14 @@ body {
 }
 
 /* Parallax Images */
-/* Parallax Images - Full Screen Background Sections */
+/* Background Image Sections - Static Dividers Between Content */
 .parallax-image {
-    height: 100vh;
     width: 100%;
+    height: 100vh;
     background-size: cover;
     background-position: center center;
-    background-attachment: scroll;
     background-repeat: no-repeat;
     position: relative;
-    display: block;
 }
 
 /* Tablet optimization */
