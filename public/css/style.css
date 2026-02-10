@@ -1098,6 +1098,17 @@ body {
         padding: 0.6rem 1rem;
     }
     
+    .social-icons {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.6rem 0;
+        gap: 0.6rem;
+    }
+    
+    .social-icons a img {
+        height: 20px;
+    }
+    
     .carousel-btn {
         width: 44px;
         height: 44px;
