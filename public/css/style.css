@@ -318,12 +318,13 @@ body {
 /* Social Media Icons */
 .social-icons {
     position: fixed;
-    top: 3rem;
+    top: 2rem;
     right: 2rem;
     z-index: 950;
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     align-items: center;
+    padding: 1rem 0;
     opacity: 0;
     transform: translateY(-20px);
     transition: var(--transition-smooth);
@@ -348,7 +349,7 @@ body {
 }
 
 .social-icons a img {
-    height: 28px;
+    height: 24px;
     width: auto;
     filter: brightness(0) invert(1);
     transition: var(--transition-smooth);
@@ -1043,14 +1044,6 @@ body {
         font-size: 1.8rem;
     }
     
-    .social-icons {
-        gap: 1rem;
-    }
-    
-    .social-icons a img {
-        height: 28px;
-    }
-    
     .about-content {
         grid-template-columns: 1fr;
     }
@@ -1103,16 +1096,6 @@ body {
         top: 1rem;
         left: 1rem;
         padding: 0.6rem 1rem;
-    }
-    
-    .social-icons {
-        top: 1rem;
-        right: 1rem;
-        gap: 0.8rem;
-    }
-    
-    .social-icons a img {
-        height: 24px;
     }
     
     .carousel-btn {
