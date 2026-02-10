@@ -465,26 +465,26 @@ function initContactForm() {
     });
 }
 
-// Smooth scroll reveal animations
-const observeElements = () => {
-    const elements = document.querySelectorAll('.content-section');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
-
-    elements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        observer.observe(el);
-    });
-};
+// Smooth scroll reveal animations - DISABLED
+// const observeElements = () => {
+//     const elements = document.querySelectorAll('.content-section');
+//     
+//     const observer = new IntersectionObserver((entries) => {
+//         entries.forEach(entry => {
+//             if (entry.isIntersecting) {
+//                 entry.target.style.opacity = '1';
+//                 entry.target.style.transform = 'translateY(0)';
+//             }
+//         });
+//     }, { threshold: 0.1 });
+// 
+//     elements.forEach(el => {
+//         el.style.opacity = '0';
+//         el.style.transform = 'translateY(30px)';
+//         el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+//         observer.observe(el);
+//     });
+// };
 
 // Mobile Fixed Background Effect (iOS Workaround)
 function initMobileFixedBackgrounds() {
@@ -548,8 +548,8 @@ function initMobileFixedBackgrounds() {
     });
 }
 
-// Call reveal animations
-setTimeout(observeElements, 100);
+// Call reveal animations - DISABLED
+// setTimeout(observeElements, 100);
 
 // Initialize mobile fixed backgrounds
 initMobileFixedBackgrounds();
