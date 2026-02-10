@@ -557,30 +557,21 @@ initMobileFixedBackgrounds();
 // Ambient Mode for Showreel Video
 async function initAmbientMode() {
     try {
+        console.log('🎨 Initializing ambient mode...');
+        
         // Load color timeline
         const response = await fetch('/assets/showreel_colors.json');
         const colorTimeline = await response.json();
+        console.log('✅ Color timeline loaded:', Object.keys(colorTimeline).length, 'colors');
         
         const ambientGlow = document.getElementById('ambient-glow');
-        if (!ambientGlow) return;
+        if (!ambientGlow) {
+            console.log('❌ Ambient glow element not found');
+            return;
+        }
         
         let updateInterval;
-        let player;
-        
-        // Wait for YouTube iframe API to load
-        function onYouTubeIframeAPIReady() {
-            const iframe = document.querySelector('#showreel-video iframe');
-            if (!iframe) {
-                setTimeout(onYouTubeIframeAPIReady, 500);
-                return;
-            }
-            
-            player = new YT.Player(iframe, {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
+        let isPlaying = false;
         
         function getColorAtTime(time) {
             const timeStr = Math.floor(time).toString();
@@ -604,41 +595,80 @@ async function initAmbientMode() {
             return colorTimeline[nearestTime.toString()];
         }
         
+        // Simple polling approach - check if video is playing
         function updateAmbient() {
-            if (!player || !player.getCurrentTime) return;
+            const iframe = document.querySelector('#showreel-video iframe');
+            if (!iframe || !iframe.contentWindow) return;
             
             try {
-                const currentTime = player.getCurrentTime();
-                const color = getColorAtTime(currentTime);
-                if (color) {
-                    ambientGlow.style.background = `radial-gradient(ellipse at center, ${color} 0%, transparent 70%)`;
+                // Use postMessage to get video time
+                iframe.contentWindow.postMessage('{"event":"command","func":"getCurrentTime","args":""}', '*');
+            } catch(err) {
+                console.log('Could not query video time:', err);
+            }
+        }
+        
+        // Listen for messages from YouTube player
+        window.addEventListener('message', function(event) {
+            if (event.origin !== 'https://www.youtube.com') return;
+            
+            try {
+                const data = JSON.parse(event.data);
+                
+                // Got current time
+                if (data.event === 'infoDelivery' && data.info && data.info.currentTime !== undefined) {
+                    const currentTime = data.info.currentTime;
+                    const color = getColorAtTime(currentTime);
+                    
+                    if (color && isPlaying) {
+                        ambientGlow.style.background = `radial-gradient(ellipse at center, ${color} 0%, transparent 70%)`;
+                        console.log(`⏱️ Time: ${currentTime.toFixed(1)}s → Color: ${color}`);
+                    }
+                }
+                
+                // Check player state
+                if (data.event === 'infoDelivery' && data.info && data.info.playerState !== undefined) {
+                    const state = data.info.playerState;
+                    if (state === 1) { // Playing
+                        if (!isPlaying) {
+                            console.log('▶️ Video started playing');
+                            isPlaying = true;
+                            updateInterval = setInterval(updateAmbient, 500);
+                        }
+                    } else { // Paused/stopped
+                        if (isPlaying) {
+                            console.log('⏸️ Video paused/stopped');
+                            isPlaying = false;
+                            if (updateInterval) {
+                                clearInterval(updateInterval);
+                            }
+                        }
+                    }
                 }
             } catch(err) {
-                console.log('Could not update ambient:', err);
+                // Ignore parse errors
             }
-        }
+        });
         
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                updateAmbient();
-                updateInterval = setInterval(updateAmbient, 500);
-            } else {
-                if (updateInterval) {
-                    clearInterval(updateInterval);
-                }
-            }
-        }
-        
-        // Wait for iframe to exist, then init
+        // Wait for iframe and start listening
         const checkIframe = setInterval(() => {
-            if (document.querySelector('#showreel-video iframe')) {
+            const iframe = document.querySelector('#showreel-video iframe');
+            if (iframe) {
                 clearInterval(checkIframe);
-                onYouTubeIframeAPIReady();
+                console.log('✅ Found showreel iframe');
+                
+                // Subscribe to player events
+                iframe.contentWindow.postMessage('{"event":"listening","id":1}', '*');
+                
+                // Start polling
+                setTimeout(() => {
+                    updateInterval = setInterval(updateAmbient, 500);
+                }, 1000);
             }
         }, 500);
         
     } catch (error) {
-        console.log('Ambient mode initialization error:', error);
+        console.log('❌ Ambient mode initialization error:', error);
     }
 }
 
