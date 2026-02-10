@@ -305,7 +305,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 80px;
+    height: 100px;
     background: rgba(13, 15, 15, 0.3);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -1112,6 +1112,10 @@ body {
         top: 1rem;
         left: 1rem;
         padding: 0.6rem 1rem;
+    }
+    
+    .top-blur-bar {
+        height: 60px;
     }
     
     .social-icons {
