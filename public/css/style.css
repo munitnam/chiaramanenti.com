@@ -648,11 +648,10 @@ body {
     bottom: -150px;
     border-radius: 16px;
     filter: blur(80px);
-    opacity: 1;
+    opacity: 0.7;
     transition: background 1.2s ease;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(ellipse at center, #ff0000 0%, transparent 70%) !important;
 }
 
 .youtube-embed {
