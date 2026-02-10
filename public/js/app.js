@@ -486,5 +486,70 @@ const observeElements = () => {
     });
 };
 
+// Mobile Fixed Background Effect (iOS Workaround)
+function initMobileFixedBackgrounds() {
+    // Only run on mobile devices
+    if (window.innerWidth > 768) return;
+    
+    const backgrounds = document.querySelectorAll('.parallax-image-mobile');
+    if (backgrounds.length === 0) return;
+    
+    let ticking = false;
+    
+    function updateBackgrounds() {
+        const viewportHeight = window.innerHeight;
+        
+        backgrounds.forEach(bg => {
+            const parent = bg.parentElement;
+            const rect = parent.getBoundingClientRect();
+            
+            // Check if parent section is visible in viewport
+            if (rect.top < viewportHeight && rect.bottom > 0) {
+                // Section is visible - show and fix background
+                bg.style.position = 'fixed';
+                bg.style.top = '0';
+                bg.style.left = '0';
+                bg.style.width = '100vw';
+                bg.style.height = '100vh';
+                bg.style.zIndex = '-1';
+                bg.style.display = 'block';
+            } else {
+                // Section not visible - hide background
+                bg.style.display = 'none';
+            }
+        });
+        
+        ticking = false;
+    }
+    
+    function onScroll() {
+        if (!ticking) {
+            requestAnimationFrame(updateBackgrounds);
+            ticking = true;
+        }
+    }
+    
+    // Initial call
+    updateBackgrounds();
+    
+    // Update on scroll (throttled with requestAnimationFrame)
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // Update on resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            // Switched to desktop - remove inline styles
+            backgrounds.forEach(bg => {
+                bg.style.cssText = '';
+            });
+        } else {
+            updateBackgrounds();
+        }
+    });
+}
+
 // Call reveal animations
 setTimeout(observeElements, 100);
+
+// Initialize mobile fixed backgrounds
+initMobileFixedBackgrounds();
