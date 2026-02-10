@@ -576,6 +576,11 @@ body {
     position: relative;
 }
 
+/* Mobile images hidden by default */
+.parallax-image-mobile {
+    display: none;
+}
+
 /* Tablet optimization */
 @media (max-width: 1024px) {
     .parallax-image {
@@ -583,12 +588,24 @@ body {
     }
 }
 
-/* Mobile - fixed attachment causes issues, use scroll */
+/* Mobile - iOS workaround with actual IMG element */
 @media (max-width: 768px) {
     .parallax-image {
         height: 50vh;
         min-height: 400px;
-        background-attachment: scroll;
+        background-image: none !important;
+        overflow: hidden;
+    }
+    
+    .parallax-image-mobile {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1;
     }
 }
 
