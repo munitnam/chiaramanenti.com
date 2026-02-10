@@ -322,7 +322,7 @@ body {
 }
 
 .top-logo img {
-    height: 60px;
+    height: 70px;
     width: auto;
     filter: brightness(0) invert(1);
 }
@@ -1146,8 +1146,12 @@ body {
         height: 60px;
     }
     
+    .top-logo {
+        top: 30px;
+    }
+    
     .top-logo img {
-        height: 40px;
+        height: 45px;
     }
     
     .social-icons {
