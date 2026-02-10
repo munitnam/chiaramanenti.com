@@ -537,7 +537,7 @@ body {
     width: 100vw;
     height: 100px;
     background: linear-gradient(to bottom, transparent, var(--bg-dark));
-    z-index: -1;
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -550,7 +550,7 @@ body {
     width: 100vw;
     height: 100px;
     background: linear-gradient(to top, transparent, var(--bg-dark));
-    z-index: -1;
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -575,6 +575,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative;
+    z-index: 0;
 }
 
 /* Mobile images hidden by default */
