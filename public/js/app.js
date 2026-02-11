@@ -263,22 +263,22 @@ function initVideoSync(mainIframe, shadowIframe) {
     }
     
     function onPlayerReady() {
-        // Start syncing
+        // Start syncing - check every 100ms for tight synchronization
         setInterval(() => {
             if (mainPlayer && shadowPlayer && mainPlayer.getCurrentTime) {
                 try {
                     const mainTime = mainPlayer.getCurrentTime();
                     const shadowTime = shadowPlayer.getCurrentTime();
                     
-                    // If difference > 1 second, sync
-                    if (Math.abs(mainTime - shadowTime) > 1) {
+                    // If difference > 0.5 second, sync
+                    if (Math.abs(mainTime - shadowTime) > 0.5) {
                         shadowPlayer.seekTo(mainTime, true);
                     }
                 } catch (e) {
                     // Ignore errors
                 }
             }
-        }, 500);
+        }, 100);
     }
     
     function onPlayerStateChange(event) {
