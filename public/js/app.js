@@ -213,7 +213,7 @@ function initShowreel() {
 function loadYouTubeVideo(container, videoId, autoplay = false) {
     const iframe = document.createElement('iframe');
     const params = autoplay 
-        ? '?autoplay=1&mute=1&enablejsapi=1' 
+        ? '?autoplay=1&mute=1&enablejsapi=1&rel=0' 
         : '?autoplay=1&enablejsapi=1&rel=0';
     iframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     iframe.frameBorder = '0';
@@ -231,7 +231,7 @@ function loadYouTubeVideo(container, videoId, autoplay = false) {
 function addVideoShadow(container, videoId, mainIframe) {
     // Create a second iframe as the live mirror/shadow
     const shadowIframe = document.createElement('iframe');
-    const params = '?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1';
+    const params = '?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0';
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
