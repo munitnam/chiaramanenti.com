@@ -515,12 +515,12 @@ function createAudioTrack(container, audioData) {
     waveform.className = 'waveform';
     waveform.setAttribute('data-filename', audioData.filename);
 
-    // Generate placeholder waveform bars (will be replaced with real data after audio loads)
+    // Generate flat placeholder bars (will animate to real waveform after audio loads)
     for (let i = 0; i < 300; i++) {
         const bar = document.createElement('div');
         bar.className = 'waveform-bar';
-        const height = Math.random() * 70 + 30;
-        bar.style.height = `${height}%`;
+        bar.style.height = '30%'; // Flat neutral state
+        bar.style.opacity = '0.3'; // Dimmed to show it's not loaded
         waveform.appendChild(bar);
     }
 
@@ -546,7 +546,9 @@ function createAudioTrack(container, audioData) {
             const height = Math.max(10, Math.min(100, average * 300)); // Scale to 10-100%
             
             if (bars[i]) {
+                bars[i].style.transition = 'height 0.3s ease-out, opacity 0.3s ease-out';
                 bars[i].style.height = `${height}%`;
+                bars[i].style.opacity = '1'; // Full opacity when real data loaded
             }
         }
     }
