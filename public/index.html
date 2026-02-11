@@ -135,7 +135,10 @@
             <h2 class="section-title">Session Guitar</h2>
             <div class="session-content">
                 <div class="session-image">
-                    <img src="/assets/images/guitare_session.jpg" alt="Session Guitar">
+                    <picture>
+                        <source srcset="/assets/images/guitare_session.webp" type="image/webp">
+                        <img src="/assets/images/guitare_session.jpg" alt="Session Guitar" loading="lazy">
+                    </picture>
                     <div class="audio-player-container">
                         <div id="audio-player" class="audio-player">
                             <!-- Audio player will be generated dynamically -->
