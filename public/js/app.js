@@ -527,9 +527,6 @@ function createAudioTrack(container, audioData) {
     waveformContainer.appendChild(progress);
     waveformContainer.appendChild(waveform);
 
-    let audio = null;
-    let audioLoaded = false;
-
     // Function to generate real waveform from audio buffer
     function generateRealWaveform(audioBuffer) {
         const rawData = audioBuffer.getChannelData(0); // Get mono channel
@@ -553,52 +550,43 @@ function createAudioTrack(container, audioData) {
         }
     }
 
-    playBtn.addEventListener('click', () => {
-        // Lazy load audio on first click
-        if (!audioLoaded) {
-            playBtn.innerHTML = '<div class="audio-spinner"></div>';
-            playBtn.disabled = true;
-            
-            audio = new Audio(`${CONFIG.audioPath}${audioData.filename}`);
-            
-            // Generate real waveform using Web Audio API
-            fetch(`${CONFIG.audioPath}${audioData.filename}`)
-                .then(response => response.arrayBuffer())
-                .then(arrayBuffer => {
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    return audioContext.decodeAudioData(arrayBuffer);
-                })
-                .then(audioBuffer => {
-                    generateRealWaveform(audioBuffer);
-                })
-                .catch(err => console.log('Waveform generation error:', err));
-            
-            audio.addEventListener('canplaythrough', () => {
-                audioLoaded = true;
-                playBtn.disabled = false;
-                playBtn.innerHTML = '⏸';
-                audio.play();
-                currentAudioPlaying = audio;
-                currentAudioPlaying.playButton = playBtn;
-                
-                // Add event listeners after audio is loaded
-                audio.addEventListener('timeupdate', () => {
-                    const percent = (audio.currentTime / audio.duration) * 100;
-                    progress.style.width = `${percent}%`;
-                });
+    // Load audio immediately on page load (no lazy loading)
+    const audio = new Audio(`${CONFIG.audioPath}${audioData.filename}`);
+    let audioLoaded = false;
 
-                audio.addEventListener('ended', () => {
-                    playBtn.innerHTML = '▶';
-                    progress.style.width = '0%';
-                });
-            }, { once: true });
-            
-            audio.load();
-            return;
-        }
-        
-        // Normal play/pause after loaded
+    // Generate real waveform using Web Audio API
+    fetch(`${CONFIG.audioPath}${audioData.filename}`)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            return audioContext.decodeAudioData(arrayBuffer);
+        })
+        .then(audioBuffer => {
+            generateRealWaveform(audioBuffer);
+        })
+        .catch(err => console.log('Waveform generation error:', err));
+
+    // Set up event listeners
+    audio.addEventListener('canplaythrough', () => {
+        audioLoaded = true;
+    }, { once: true });
+
+    audio.addEventListener('timeupdate', () => {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progress.style.width = `${percent}%`;
+    });
+
+    audio.addEventListener('ended', () => {
+        playBtn.innerHTML = '▶';
+        progress.style.width = '0%';
+    });
+
+    // Start loading audio
+    audio.load();
+
+    playBtn.addEventListener('click', () => {
         if (audio.paused) {
+            // Stop other playing audio
             if (currentAudioPlaying && currentAudioPlaying !== audio) {
                 currentAudioPlaying.pause();
                 currentAudioPlaying.currentTime = 0;
