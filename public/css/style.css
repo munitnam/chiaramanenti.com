@@ -79,10 +79,6 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     transition: var(--transition-smooth);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
 }
 
 /* Mobile: keep fixed effect with JavaScript positioning */
