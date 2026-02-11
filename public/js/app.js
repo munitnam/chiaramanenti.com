@@ -318,6 +318,13 @@ function initVideoSync(mainIframe, shadowIframe) {
             else if (event.data === 2) {
                 shadowPlayer.pauseVideo();
             }
+            // Ended - replay to prevent end screen
+            else if (event.data === 0) {
+                setTimeout(() => {
+                    mainPlayer.seekTo(0);
+                    mainPlayer.pauseVideo();
+                }, 100);
+            }
         } catch (e) {
             // Ignore errors
         }
