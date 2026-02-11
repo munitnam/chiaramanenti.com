@@ -897,15 +897,17 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    padding: 0 0.5rem;
+    justify-content: space-between;
+    padding: 0;
+    gap: 1px;
 }
 
 .waveform-bar {
-    width: 3px;
+    flex: 1;
+    min-width: 1px;
+    max-width: 2px;
     background: var(--text-gold);
-    border-radius: 2px;
-    transition: var(--transition-smooth);
+    transition: none;
 }
 
 .waveform-progress {

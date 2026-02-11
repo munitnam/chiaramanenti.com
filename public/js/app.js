@@ -516,7 +516,7 @@ function createAudioTrack(container, audioData) {
     waveform.setAttribute('data-filename', audioData.filename);
 
     // Generate placeholder waveform bars (will be replaced with real data after audio loads)
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 300; i++) {
         const bar = document.createElement('div');
         bar.className = 'waveform-bar';
         const height = Math.random() * 70 + 30;
@@ -533,7 +533,7 @@ function createAudioTrack(container, audioData) {
     // Function to generate real waveform from audio buffer
     function generateRealWaveform(audioBuffer) {
         const rawData = audioBuffer.getChannelData(0); // Get mono channel
-        const samples = 100; // Number of bars
+        const samples = 300; // Number of bars for SoundCloud-style detail
         const blockSize = Math.floor(rawData.length / samples);
         const bars = waveform.querySelectorAll('.waveform-bar');
         
@@ -543,7 +543,7 @@ function createAudioTrack(container, audioData) {
                 sum += Math.abs(rawData[(i * blockSize) + j]);
             }
             const average = sum / blockSize;
-            const height = Math.max(20, Math.min(100, average * 200)); // Scale to 20-100%
+            const height = Math.max(10, Math.min(100, average * 300)); // Scale to 10-100%
             
             if (bars[i]) {
                 bars[i].style.height = `${height}%`;
