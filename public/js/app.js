@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     initScrollEffects();
+    initLogoClick();
     initMenu();
     initShowreel();
     initCarousel();
@@ -101,6 +102,20 @@ function initScrollEffects() {
         }
 
         lastScroll = scrollY;
+    });
+}
+
+// Logo Click to Scroll to Top
+function initLogoClick() {
+    const topLogo = document.getElementById('top-logo');
+    
+    topLogo.style.cursor = 'pointer';
+    
+    topLogo.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
 }
 
