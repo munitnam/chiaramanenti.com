@@ -526,9 +526,42 @@ function createAudioTrack(container, audioData) {
     waveformContainer.appendChild(progress);
     waveformContainer.appendChild(waveform);
 
-    const audio = new Audio(`${CONFIG.audioPath}${audioData.filename}`);
+    let audio = null;
+    let audioLoaded = false;
 
     playBtn.addEventListener('click', () => {
+        // Lazy load audio on first click
+        if (!audioLoaded) {
+            playBtn.innerHTML = '<div class="audio-spinner"></div>';
+            playBtn.disabled = true;
+            
+            audio = new Audio(`${CONFIG.audioPath}${audioData.filename}`);
+            
+            audio.addEventListener('canplaythrough', () => {
+                audioLoaded = true;
+                playBtn.disabled = false;
+                playBtn.innerHTML = '⏸';
+                audio.play();
+                currentAudioPlaying = audio;
+                currentAudioPlaying.playButton = playBtn;
+                
+                // Add event listeners after audio is loaded
+                audio.addEventListener('timeupdate', () => {
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    progress.style.width = `${percent}%`;
+                });
+
+                audio.addEventListener('ended', () => {
+                    playBtn.innerHTML = '▶';
+                    progress.style.width = '0%';
+                });
+            }, { once: true });
+            
+            audio.load();
+            return;
+        }
+        
+        // Normal play/pause after loaded
         if (audio.paused) {
             if (currentAudioPlaying && currentAudioPlaying !== audio) {
                 currentAudioPlaying.pause();
@@ -546,17 +579,8 @@ function createAudioTrack(container, audioData) {
         }
     });
 
-    audio.addEventListener('timeupdate', () => {
-        const percent = (audio.currentTime / audio.duration) * 100;
-        progress.style.width = `${percent}%`;
-    });
-
-    audio.addEventListener('ended', () => {
-        playBtn.innerHTML = '▶';
-        progress.style.width = '0%';
-    });
-
     waveformContainer.addEventListener('click', (e) => {
+        if (!audioLoaded || !audio) return;
         const rect = waveformContainer.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const percent = x / rect.width;
