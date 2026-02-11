@@ -200,15 +200,15 @@ function loadYouTubeVideo(container, videoId, autoplay = false) {
     container.innerHTML = '';
     container.appendChild(iframe);
     
-    // Add live mirrored shadow effect
-    addVideoShadow(container, videoId);
+    // Add live mirrored shadow effect with sync
+    addVideoShadow(container, videoId, iframe);
 }
 
-// Add mirrored shadow effect behind video - LIVE MIRROR
-function addVideoShadow(container, videoId) {
+// Add mirrored shadow effect behind video - LIVE MIRROR with SYNC
+function addVideoShadow(container, videoId, mainIframe) {
     // Create a second iframe as the live mirror/shadow
     const shadowIframe = document.createElement('iframe');
-    const params = '?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&loop=1&playlist=' + videoId;
+    const params = '?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1';
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -230,6 +230,82 @@ function addVideoShadow(container, videoId) {
     
     // Insert shadow before main video
     container.insertBefore(shadowIframe, container.firstChild);
+    
+    // Sync videos using YouTube API
+    setTimeout(() => {
+        initVideoSync(mainIframe, shadowIframe);
+    }, 1000);
+}
+
+// Synchronize main video with shadow video using YouTube iframe API
+function initVideoSync(mainIframe, shadowIframe) {
+    let mainPlayer, shadowPlayer;
+    let lastSyncTime = 0;
+    
+    // Load YouTube iframe API
+    if (!window.YT) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+    
+    // Initialize players when API is ready
+    function onYouTubeIframeAPIReady() {
+        mainPlayer = new YT.Player(mainIframe.id, {
+            events: {
+                'onStateChange': onPlayerStateChange,
+                'onReady': onPlayerReady
+            }
+        });
+        
+        shadowPlayer = new YT.Player(shadowIframe.id);
+    }
+    
+    function onPlayerReady() {
+        // Start syncing
+        setInterval(() => {
+            if (mainPlayer && shadowPlayer && mainPlayer.getCurrentTime) {
+                try {
+                    const mainTime = mainPlayer.getCurrentTime();
+                    const shadowTime = shadowPlayer.getCurrentTime();
+                    
+                    // If difference > 1 second, sync
+                    if (Math.abs(mainTime - shadowTime) > 1) {
+                        shadowPlayer.seekTo(mainTime, true);
+                    }
+                } catch (e) {
+                    // Ignore errors
+                }
+            }
+        }, 500);
+    }
+    
+    function onPlayerStateChange(event) {
+        if (!shadowPlayer) return;
+        
+        try {
+            // Playing
+            if (event.data === 1) {
+                shadowPlayer.playVideo();
+                const currentTime = mainPlayer.getCurrentTime();
+                shadowPlayer.seekTo(currentTime, true);
+            }
+            // Paused
+            else if (event.data === 2) {
+                shadowPlayer.pauseVideo();
+            }
+        } catch (e) {
+            // Ignore errors
+        }
+    }
+    
+    // Wait for API to load
+    if (window.YT && window.YT.Player) {
+        onYouTubeIframeAPIReady();
+    } else {
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+    }
 }
 
 // Carousel
