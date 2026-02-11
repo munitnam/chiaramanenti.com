@@ -196,38 +196,40 @@ function loadYouTubeVideo(container, videoId, autoplay = false) {
     iframe.frameBorder = '0';
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     iframe.allowFullscreen = true;
+    iframe.id = 'main-video-' + videoId;
     container.innerHTML = '';
     container.appendChild(iframe);
     
-    // Add thumbnail shadow effect
+    // Add live mirrored shadow effect
     addVideoShadow(container, videoId);
 }
 
-// Add mirrored shadow effect behind video
+// Add mirrored shadow effect behind video - LIVE MIRROR
 function addVideoShadow(container, videoId) {
-    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    // Create a second iframe as the live mirror/shadow
+    const shadowIframe = document.createElement('iframe');
+    const params = '?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&loop=1&playlist=' + videoId;
+    shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
+    shadowIframe.frameBorder = '0';
+    shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    shadowIframe.id = 'shadow-video-' + videoId;
     
-    // Create shadow element
-    const shadow = document.createElement('div');
-    shadow.className = 'video-shadow';
-    shadow.style.cssText = `
+    shadowIframe.className = 'video-shadow-mirror';
+    shadowIframe.style.cssText = `
         position: absolute;
         top: -60px;
         left: -60px;
-        right: -60px;
-        bottom: -60px;
-        background-image: url('${thumbnailUrl}');
-        background-size: cover;
-        background-position: center;
-        filter: blur(60px) brightness(0.7);
-        opacity: 0.7;
+        width: calc(100% + 120px);
+        height: calc(100% + 120px);
+        filter: blur(40px) brightness(0.6) saturate(1.3);
+        opacity: 0.8;
         z-index: -1;
         border-radius: 20px;
         pointer-events: none;
-        transition: opacity 0.3s ease;
     `;
     
-    container.appendChild(shadow);
+    // Insert shadow before main video
+    container.insertBefore(shadowIframe, container.firstChild);
 }
 
 // Carousel
