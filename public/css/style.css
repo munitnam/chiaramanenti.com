@@ -25,6 +25,16 @@
     box-sizing: border-box;
 }
 
+html {
+    touch-action: pan-y pan-x;
+    -ms-touch-action: pan-y pan-x;
+}
+
+body {
+    touch-action: pan-y pan-x;
+    -ms-touch-action: pan-y pan-x;
+}
+
 :root {
     --bg-dark: #0d0f0f;
     --bg-card: #1a1d1d;

@@ -40,6 +40,29 @@ const audioFiles = [
 let currentAudioPlaying = null;
 let menuOpen = false;
 
+// Prevent pinch-to-zoom on iOS/iPad
+document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('gesturechange', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('gestureend', function(e) {
+    e.preventDefault();
+});
+
+// Prevent double-tap zoom
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+    const now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
+
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', async () => {
     // Load configuration first
