@@ -263,9 +263,8 @@ function addVideoShadow(container, videoId, mainIframe) {
 // Synchronize main video with shadow video using YouTube iframe API
 function initVideoSync(mainIframe, shadowIframe) {
     let mainPlayer, shadowPlayer;
-    let lastSyncTime = 0;
     
-    // Load YouTube iframe API
+    // Load YouTube iframe API if not already loaded
     if (!window.YT) {
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
@@ -273,17 +272,26 @@ function initVideoSync(mainIframe, shadowIframe) {
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }
     
-    // Initialize players when API is ready
-    function onYouTubeIframeAPIReady() {
-        mainPlayer = new YT.Player(mainIframe.id, {
-            events: {
-                'onStateChange': onPlayerStateChange,
-                'onReady': onPlayerReady
-            }
-        });
+    // Wait for API to be ready
+    const initPlayers = () => {
+        if (!window.YT || !window.YT.Player) {
+            setTimeout(initPlayers, 100);
+            return;
+        }
         
-        shadowPlayer = new YT.Player(shadowIframe.id);
-    }
+        try {
+            mainPlayer = new YT.Player(mainIframe.id, {
+                events: {
+                    'onStateChange': onPlayerStateChange,
+                    'onReady': onPlayerReady
+                }
+            });
+            
+            shadowPlayer = new YT.Player(shadowIframe.id);
+        } catch (e) {
+            console.log('Error initializing players:', e);
+        }
+    };
     
     function onPlayerReady() {
         // Start syncing - check every 100ms for tight synchronization
@@ -305,37 +313,39 @@ function initVideoSync(mainIframe, shadowIframe) {
     }
     
     function onPlayerStateChange(event) {
-        if (!shadowPlayer) return;
-        
         try {
             // Playing
             if (event.data === 1) {
-                shadowPlayer.playVideo();
-                const currentTime = mainPlayer.getCurrentTime();
-                shadowPlayer.seekTo(currentTime, true);
+                if (shadowPlayer && shadowPlayer.playVideo) {
+                    shadowPlayer.playVideo();
+                    const currentTime = mainPlayer.getCurrentTime();
+                    shadowPlayer.seekTo(currentTime, true);
+                }
             }
             // Paused
             else if (event.data === 2) {
-                shadowPlayer.pauseVideo();
+                if (shadowPlayer && shadowPlayer.pauseVideo) {
+                    shadowPlayer.pauseVideo();
+                }
             }
             // Ended - replay to prevent end screen
             else if (event.data === 0) {
-                setTimeout(() => {
+                if (mainPlayer && mainPlayer.seekTo) {
                     mainPlayer.seekTo(0);
                     mainPlayer.pauseVideo();
-                }, 100);
+                }
+                if (shadowPlayer && shadowPlayer.seekTo) {
+                    shadowPlayer.seekTo(0);
+                    shadowPlayer.pauseVideo();
+                }
             }
         } catch (e) {
-            // Ignore errors
+            console.log('Player state change error:', e);
         }
     }
     
-    // Wait for API to load
-    if (window.YT && window.YT.Player) {
-        onYouTubeIframeAPIReady();
-    } else {
-        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-    }
+    // Start initialization
+    setTimeout(initPlayers, 500);
 }
 
 // Carousel
