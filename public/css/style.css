@@ -1180,6 +1180,10 @@ body {
     .mobile-social-icons {
         display: flex;
     }
+    
+    .menu-text {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
