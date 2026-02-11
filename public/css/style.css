@@ -938,7 +938,7 @@ body {
 
 /* Awards Section */
 .awards-section {
-    background: rgba(39, 55, 54, 0.95);
+    background: rgba(39, 55, 54, 0.75);
     padding: 4rem 2rem;
     width: 100%;
     position: relative;
@@ -1185,7 +1185,7 @@ body {
 
 /* Footer */
 .footer {
-    background: rgba(39, 55, 54, 0.95);
+    background: rgba(39, 55, 54, 0.75);
     padding: 2rem;
     text-align: center;
     color: var(--text-gold);
