@@ -1171,6 +1171,17 @@ body {
     }
 }
 
+/* Tablet mode: Hide top social icons, show bottom ones (481px to 1024px) */
+@media (max-width: 1024px) and (min-width: 481px) {
+    .social-icons {
+        display: none !important;
+    }
+    
+    .mobile-social-icons {
+        display: flex;
+    }
+}
+
 @media (max-width: 480px) {
     .menu-btn {
         top: 18px;
