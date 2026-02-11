@@ -198,6 +198,36 @@ function loadYouTubeVideo(container, videoId, autoplay = false) {
     iframe.allowFullscreen = true;
     container.innerHTML = '';
     container.appendChild(iframe);
+    
+    // Add thumbnail shadow effect
+    addVideoShadow(container, videoId);
+}
+
+// Add mirrored shadow effect behind video
+function addVideoShadow(container, videoId) {
+    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    
+    // Create shadow element
+    const shadow = document.createElement('div');
+    shadow.className = 'video-shadow';
+    shadow.style.cssText = `
+        position: absolute;
+        top: -60px;
+        left: -60px;
+        right: -60px;
+        bottom: -60px;
+        background-image: url('${thumbnailUrl}');
+        background-size: cover;
+        background-position: center;
+        filter: blur(60px) brightness(0.7);
+        opacity: 0.7;
+        z-index: -1;
+        border-radius: 20px;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    `;
+    
+    container.appendChild(shadow);
 }
 
 // Carousel
