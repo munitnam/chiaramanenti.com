@@ -943,6 +943,8 @@ body {
     width: 100%;
     position: relative;
     z-index: 2;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
 }
 
 .awards-section::before,
@@ -1189,6 +1191,8 @@ body {
     padding: 2rem;
     text-align: center;
     color: var(--text-gold);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
 }
 
 /* Responsive Design */
