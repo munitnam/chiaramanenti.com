@@ -567,19 +567,12 @@ body {
     display: none;
 }
 
-/* Tablet optimization */
+/* Tablet and Mobile - iOS workaround with actual IMG element for iPad and phones */
 @media (max-width: 1024px) {
     .parallax-image {
         height: 70vh;
-    }
-}
-
-/* Mobile - iOS workaround with actual IMG element */
-@media (max-width: 768px) {
-    .parallax-image {
-        height: 50vh;
-        min-height: 400px;
         background-image: none !important;
+        background-attachment: scroll;
         overflow: hidden;
         position: relative;
     }
@@ -592,6 +585,19 @@ body {
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+    
+    .hero-image {
+        background-attachment: scroll;
+        background-size: cover;
+    }
+}
+
+/* Mobile phones - smaller height */
+@media (max-width: 768px) {
+    .parallax-image {
+        height: 50vh;
+        min-height: 400px;
     }
 }
 
