@@ -651,8 +651,11 @@ function initContactForm() {
 
 // Mobile Fixed Background Effect (iOS Workaround)
 function initMobileFixedBackgrounds() {
-    // Only run on mobile and tablet devices (up to 1024px for iPad)
-    if (window.innerWidth > 1024) return;
+    // Run on mobile/tablet devices OR iPad landscape (up to 1400px in landscape)
+    const isLandscape = window.innerWidth > window.innerHeight;
+    const maxWidth = isLandscape ? 1400 : 1024;
+    
+    if (window.innerWidth > maxWidth) return;
     
     const backgrounds = document.querySelectorAll('.parallax-image-mobile');
     if (backgrounds.length === 0) return;
@@ -700,7 +703,10 @@ function initMobileFixedBackgrounds() {
     
     // Update on resize
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 1024) {
+        const isLandscape = window.innerWidth > window.innerHeight;
+        const maxWidth = isLandscape ? 1400 : 1024;
+        
+        if (window.innerWidth > maxWidth) {
             // Switched to desktop - remove inline styles
             backgrounds.forEach(bg => {
                 bg.style.cssText = '';

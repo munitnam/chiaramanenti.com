@@ -28,6 +28,7 @@
 html {
     touch-action: pan-y pan-x;
     -ms-touch-action: pan-y pan-x;
+    overflow-x: hidden;
 }
 
 body {
@@ -569,6 +570,32 @@ body {
 
 /* Tablet and Mobile - iOS workaround with actual IMG element for iPad and phones */
 @media (max-width: 1024px) {
+    .parallax-image {
+        height: 70vh;
+        background-image: none !important;
+        background-attachment: scroll;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .parallax-image-mobile {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .hero-image {
+        background-attachment: scroll;
+        background-size: cover;
+    }
+}
+
+/* iPad Pro Landscape - specific fix (1366x1024) */
+@media (max-width: 1400px) and (orientation: landscape) {
     .parallax-image {
         height: 70vh;
         background-image: none !important;
