@@ -86,7 +86,7 @@ body {
     .hero-image {
         background-size: cover;
         background-position: center center;
-        background-attachment: fixed;
+        background-attachment: scroll;
         position: fixed;
         top: 0;
         left: 0;
@@ -595,7 +595,7 @@ body {
     }
     
     .hero-image {
-        background-attachment: fixed;
+        background-attachment: scroll;
         background-size: cover;
         position: fixed;
         top: 0;
@@ -627,7 +627,7 @@ body {
     }
     
     .hero-image {
-        background-attachment: fixed;
+        background-attachment: scroll;
         background-size: cover;
         position: fixed;
         top: 0;
@@ -1218,6 +1218,21 @@ body {
         gap: 2rem;
     }
     
+    /* Full-width video on mobile portrait */
+    .video-container {
+        max-width: 100%;
+        padding: 40px 0;
+        margin: 0;
+    }
+    
+    .youtube-embed {
+        border-radius: 0;
+    }
+    
+    .youtube-embed iframe {
+        border-radius: 0;
+    }
+
     .logo {
         height: 200px;
     }
