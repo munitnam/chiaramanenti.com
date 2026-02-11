@@ -81,12 +81,18 @@ body {
     transition: var(--transition-smooth);
 }
 
-/* Mobile: ensure cover for better display */
+/* Mobile: keep fixed effect with JavaScript positioning */
 @media (max-width: 768px) {
     .hero-image {
         background-size: cover;
         background-position: center center;
-        background-attachment: scroll;
+        background-attachment: fixed;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
     }
 }
 
@@ -589,8 +595,14 @@ body {
     }
     
     .hero-image {
-        background-attachment: scroll;
+        background-attachment: fixed;
         background-size: cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
     }
 }
 
@@ -615,8 +627,14 @@ body {
     }
     
     .hero-image {
-        background-attachment: scroll;
+        background-attachment: fixed;
         background-size: cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
     }
 }
 
