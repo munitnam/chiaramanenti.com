@@ -148,7 +148,7 @@ function initMenu() {
     const menuBtn = document.getElementById('menu-btn');
     const menuOverlay = document.getElementById('menu-overlay');
     const closeMenu = document.getElementById('close-menu');
-    const menuLinks = document.querySelectorAll('.overlay-nav a, .main-nav a, .hero-bottom-menu a');
+    const menuLinks = document.querySelectorAll('.overlay-nav a, .main-nav a, .hero-bottom-menu a, .scroll-arrow');
 
     menuBtn.addEventListener('click', () => {
         menuOverlay.classList.add('active');
