@@ -640,7 +640,9 @@ let turnstileToken = null;
 
 // Callback when Turnstile is completed
 window.onTurnstileSuccess = function(token) {
+    console.log('Turnstile callback fired! Token:', token);
     turnstileToken = token;
+    console.log('Token stored:', turnstileToken);
 };
 
 function initContactForm() {
@@ -667,10 +669,8 @@ function initContactForm() {
         };
 
         // Debug: Log what we're sending
-        console.log('Submitting form data:', {
-            ...formData,
-            turnstileToken: turnstileToken ? 'present' : 'MISSING'
-        });
+        console.log('Submitting form data:', formData);
+        console.log('Actual token value:', turnstileToken);
 
         try {
             const response = await fetch('/api/contact', {
