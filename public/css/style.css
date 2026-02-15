@@ -965,13 +965,11 @@ body {
 
 /* Awards Section */
 .awards-section {
-    background: rgba(39, 55, 54, 0.75);
+    background: #292218;
     padding: 4rem 2rem;
     width: 100%;
     position: relative;
     z-index: 2;
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
 }
 
 .awards-section::before,
@@ -1038,11 +1036,6 @@ body {
     flex-wrap: wrap;
     gap: 0.3rem;
     text-decoration: none;
-    transition: var(--transition-smooth);
-}
-
-.endorsement-text:hover {
-    color: var(--text-gold);
 }
 
 .cort-logo-inline {
@@ -1233,12 +1226,10 @@ body {
 
 /* Footer */
 .footer {
-    background: rgba(39, 55, 54, 0.75);
+    background: #292218;
     padding: 2rem;
     text-align: center;
     color: var(--text-gold);
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
 }
 
 /* Responsive Design */
