@@ -1037,6 +1037,12 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.3rem;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.endorsement-text:hover {
+    color: var(--text-gold);
 }
 
 .cort-logo-inline {
