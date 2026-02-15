@@ -6,6 +6,9 @@ ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteBase /
   
+  # Redirect old French page to homepage (preserve #1 Google ranking)
+  RewriteRule ^fr/?$ https://chiaramanenti.com/ [R=301,L]
+  
   # Redirect HTTP to HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
