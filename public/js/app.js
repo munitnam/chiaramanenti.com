@@ -27,7 +27,7 @@ let scoringVideos = [
     { thumbnail: 'thumb2.jpg', videoId: 'VIDEO_ID_2' },
     { thumbnail: 'thumb3.jpg', videoId: 'VIDEO_ID_3' },
     { thumbnail: 'thumb4.jpg', videoId: 'VIDEO_ID_4' },
-    { thumbnail: 'porte-malheur-1.jpg', videoId: null }
+    { thumbnail: 'porte-malheur-2.jpg', videoId: null }
 ];
 
 // Audio files
