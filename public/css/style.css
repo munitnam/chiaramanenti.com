@@ -1107,12 +1107,20 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: var(--transition-smooth);
+    margin-top: 1rem;
 }
 
 .submit-btn:hover {
     background: #3d3123;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(41, 34, 24, 0.4);
+}
+
+/* Cloudflare Turnstile Widget */
+.cf-turnstile {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
 }
 
 .form-message {

@@ -63,14 +63,36 @@ app.get('/api/audio-files', async (req, res) => {
 
 // API: Contact form
 app.post('/api/contact', async (req, res) => {
-    const { name, email, subject, message } = req.body;
+    const { name, email, subject, message, turnstileToken } = req.body;
 
     // Validation
     if (!name || !email || !subject || !message) {
         return res.status(400).json({ error: 'All fields are required' });
     }
 
+    if (!turnstileToken) {
+        return res.status(400).json({ error: 'Verification challenge required' });
+    }
+
     try {
+        // Verify Cloudflare Turnstile token
+        const turnstileVerify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                secret: process.env.TURNSTILE_SECRET_KEY,
+                response: turnstileToken
+            })
+        });
+
+        const turnstileResult = await turnstileVerify.json();
+
+        if (!turnstileResult.success) {
+            return res.status(400).json({ error: 'Verification failed. Please try again.' });
+        }
+
         // Configure nodemailer transporter - Hostinger SMTP
         const transporter = nodemailer.createTransport({
             host: process.env.EMAIL_HOST,

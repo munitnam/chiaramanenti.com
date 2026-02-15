@@ -642,11 +642,21 @@ function initContactForm() {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        // Get Cloudflare Turnstile token
+        const turnstileResponse = document.querySelector('.cf-turnstile textarea[name="cf-turnstile-response"]');
+        if (!turnstileResponse || !turnstileResponse.value) {
+            messageDiv.style.display = 'block';
+            messageDiv.className = 'form-message error';
+            messageDiv.textContent = 'Please complete the verification challenge.';
+            return;
+        }
+
         const formData = {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
             subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value
+            message: document.getElementById('message').value,
+            turnstileToken: turnstileResponse.value
         };
 
         try {
@@ -659,13 +669,19 @@ function initContactForm() {
             const result = await response.json();
 
             if (response.ok) {
+                messageDiv.style.display = 'block';
                 messageDiv.className = 'form-message success';
                 messageDiv.textContent = 'Message sent successfully! We\'ll get back to you soon.';
                 form.reset();
+                // Reset Turnstile widget
+                if (window.turnstile) {
+                    window.turnstile.reset();
+                }
             } else {
                 throw new Error(result.error || 'Failed to send message');
             }
         } catch (error) {
+            messageDiv.style.display = 'block';
             messageDiv.className = 'form-message error';
             messageDiv.textContent = 'Failed to send message. Please try again later.';
         }
