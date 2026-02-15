@@ -192,8 +192,8 @@
             noteElements.push(noteData);
         }
         
-        // Create MORE initial notes!
-        const noteCount = window.innerWidth < 768 ? 20 : 40;  // Reduced for performance!
+        // Create initial notes
+        const noteCount = window.innerWidth < 768 ? 15 : 30;  // Back to original
         for (let i = 0; i < noteCount; i++) {
             createNote();
         }
@@ -220,20 +220,19 @@
                 const dy = note.y - mousePos.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                // Flee from cursor if too close - SMOOTHER & LARGER RADIUS
-                const fleeRadius = note.isGuitar ? 200 : 180;  // Guitars flee more!
+                // Flee from cursor if too close
+                const fleeRadius = 150;  // Back to original
                 if (distance < fleeRadius && distance > 0) {
                     const force = (fleeRadius - distance) / fleeRadius;
-                    const pushStrength = note.isGuitar ? 0.8 : 0.6;  // Stronger push
-                    note.vx += (dx / distance) * force * pushStrength;
-                    note.vy += (dy / distance) * force * pushStrength;
+                    note.vx += (dx / distance) * force * 0.5;
+                    note.vy += (dy / distance) * force * 0.5;
                 }
                 
-                // Apply velocity with LESS damping (smoother motion)
+                // Apply velocity with damping
                 note.x += note.vx;
                 note.y += note.vy;
-                note.vx *= 0.97;  // Less friction = smoother
-                note.vy *= 0.97;
+                note.vx *= 0.95;  // Original damping
+                note.vy *= 0.95;
                 
                 // Add gentle floating motion
                 note.vy += (Math.random() - 0.5) * 0.05;
