@@ -220,8 +220,8 @@
                 const dy = note.y - mousePos.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                // Flee from cursor if too close
-                const fleeRadius = 150;  // Back to original
+                // Flee from cursor if within larger radius
+                const fleeRadius = 300;  // Larger radius so notes flee earlier
                 if (distance < fleeRadius && distance > 0) {
                     const force = (fleeRadius - distance) / fleeRadius;
                     note.vx += (dx / distance) * force * 0.5;
