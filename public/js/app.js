@@ -365,7 +365,7 @@ function initCarousel() {
             item.className = 'carousel-item';
             item.setAttribute('role', 'button');
             item.setAttribute('tabindex', '0');
-            item.innerHTML = `<img src="${CONFIG.carouselPath}${video.thumbnail}" alt="Scoring ${(index % items.length) + 1}">`;
+            item.innerHTML = `<img src="${CONFIG.carouselPath}${video.thumbnail}" alt="${video.title} - Original Film Score by Chiara Manenti">`;
             item.addEventListener('click', () => {
                 if (!video.videoId) return;
                 openVideoModal(video.videoId);
