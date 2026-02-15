@@ -958,6 +958,18 @@ body {
     max-width: 800px;
 }
 
+.about-bio a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.about-bio a:hover {
+    color: var(--text-gold);
+    border-bottom-color: var(--text-gold);
+}
+
 /* About section logos */
 .about-section .logos-container {
     display: flex;
