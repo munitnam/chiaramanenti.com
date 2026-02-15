@@ -1258,8 +1258,9 @@ body {
 
 .footer-credits-text {
     margin-top: 1.5rem;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
 }
 
 .footer-column ul {
