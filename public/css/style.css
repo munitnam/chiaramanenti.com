@@ -1588,6 +1588,11 @@ body {
         gap: 0.75rem;
     }
     
+    /* Scoring carousel - 20% smaller on mobile portrait */
+    .carousel-item {
+        flex: 0 0 480px;
+    }
+    
     /* Hero logo - bigger and higher on mobile portrait */
     .hero-title {
         top: 35%;
