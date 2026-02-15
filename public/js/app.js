@@ -849,3 +849,42 @@ document.addEventListener('DOMContentLoaded', function() {
         privacyDate.textContent = `${currentMonth} ${currentYear}`;
     }
 })();
+
+// Email obfuscation - protects against spam bots
+(function() {
+    // Obfuscated email (Base64 encoded)
+    const obfuscatedEmail = 'Y29udGFjdEBjaGlhcmFtYW5lbnRpLmNvbQ==';
+    
+    // Decode the email
+    function decodeEmail(encoded) {
+        return atob(encoded);
+    }
+    
+    // Get all email placeholder elements
+    const emailElements = document.querySelectorAll('.obfuscated-email');
+    
+    // Populate each element with the decoded email
+    emailElements.forEach(element => {
+        const email = decodeEmail(obfuscatedEmail);
+        
+        // Create a clickable mailto link
+        const link = document.createElement('a');
+        link.href = 'mailto:' + email;
+        link.textContent = email;
+        link.style.color = 'inherit';
+        link.style.textDecoration = 'none';
+        
+        // Add hover effect
+        link.addEventListener('mouseenter', function() {
+            this.style.color = 'var(--text-gold)';
+            this.style.textDecoration = 'underline';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.color = 'inherit';
+            this.style.textDecoration = 'none';
+        });
+        
+        element.appendChild(link);
+    });
+})();
