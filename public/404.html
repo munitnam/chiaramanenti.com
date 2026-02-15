@@ -195,6 +195,9 @@
                 isGuitar: isGuitar
             };
             
+            // Set initial position with transform!
+            note.style.transform = `translate(${startX}px, ${startY}px) rotate(${noteData.rotation}deg)`;
+            
             document.body.appendChild(note);
             noteElements.push(noteData);
         }
