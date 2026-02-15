@@ -1590,8 +1590,8 @@ body {
     
     /* Hero logo - bigger and higher on mobile portrait */
     .hero-title {
-        top: 40%;
-        width: 90%;
+        top: 35%;
+        width: 95%;
         max-width: none;
     }
 }
