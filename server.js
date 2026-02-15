@@ -71,10 +71,11 @@ app.post('/api/contact', async (req, res) => {
     }
 
     try {
-        // Configure nodemailer transporter
-        // Note: You'll need to set up email credentials in .env file
+        // Configure nodemailer transporter - Hostinger SMTP
         const transporter = nodemailer.createTransport({
-            service: process.env.EMAIL_SERVICE || 'gmail',
+            host: process.env.EMAIL_HOST,
+            port: parseInt(process.env.EMAIL_PORT),
+            secure: process.env.EMAIL_SECURE === 'true',
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS
