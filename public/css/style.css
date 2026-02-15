@@ -1593,6 +1593,12 @@ body {
         flex: 0 0 345px;
     }
     
+    /* Showreel - full width on mobile portrait */
+    .video-container {
+        padding: 40px 0;
+        margin: 0;
+    }
+    
     /* Hero logo - bigger and higher on mobile portrait */
     .hero-title {
         top: 35%;
