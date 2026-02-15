@@ -636,6 +636,13 @@ function loadBio() {
 }
 
 // Contact Form
+let turnstileToken = null;
+
+// Callback when Turnstile is completed
+window.onTurnstileSuccess = function(token) {
+    turnstileToken = token;
+};
+
 function initContactForm() {
     const form = document.getElementById('contact-form');
     const messageDiv = document.getElementById('form-message');
@@ -643,9 +650,8 @@ function initContactForm() {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Get Cloudflare Turnstile token
-        const turnstileResponse = document.querySelector('.cf-turnstile textarea[name="cf-turnstile-response"]');
-        if (!turnstileResponse || !turnstileResponse.value) {
+        // Check if Turnstile token is available
+        if (!turnstileToken) {
             messageDiv.style.display = 'block';
             messageDiv.className = 'form-message error';
             messageDiv.textContent = 'Please complete the verification challenge.';
@@ -657,7 +663,7 @@ function initContactForm() {
             email: document.getElementById('email').value,
             subject: document.getElementById('subject').value,
             message: document.getElementById('message').value,
-            turnstileToken: turnstileResponse.value
+            turnstileToken: turnstileToken
         };
 
         try {
@@ -674,7 +680,8 @@ function initContactForm() {
                 messageDiv.className = 'form-message success';
                 messageDiv.textContent = 'Message sent successfully! We\'ll get back to you soon.';
                 form.reset();
-                // Reset Turnstile widget
+                // Reset Turnstile widget and token
+                turnstileToken = null;
                 if (window.turnstile) {
                     window.turnstile.reset();
                 }

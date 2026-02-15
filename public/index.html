@@ -262,7 +262,10 @@
                         <textarea id="message" name="message" placeholder="Message" rows="6" required></textarea>
                     </div>
                     <!-- Cloudflare Turnstile Widget -->
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAACdLdVq_7TT_t1Ra" data-theme="dark"></div>
+                    <div class="cf-turnstile" 
+                         data-sitekey="0x4AAAAAACdLdVq_7TT_t1Ra" 
+                         data-theme="dark"
+                         data-callback="onTurnstileSuccess"></div>
                     <button type="submit" class="submit-btn">Send Message</button>
                     <div id="form-message" class="form-message"></div>
                 </form>
