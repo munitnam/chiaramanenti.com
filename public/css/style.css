@@ -75,7 +75,7 @@ body {
     height: 100%;
     background-image: url('/assets/images/top_image.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center top;
     background-attachment: fixed;
     background-repeat: no-repeat;
     transition: var(--transition-smooth);
@@ -85,7 +85,7 @@ body {
 @media (max-width: 768px) {
     .hero-image {
         background-size: cover;
-        background-position: center center;
+        background-position: center top;
         background-attachment: scroll;
         position: fixed;
         top: 0;
