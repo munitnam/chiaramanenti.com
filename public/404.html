@@ -75,9 +75,6 @@
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
                          0 0 40px rgba(255, 255, 255, 0.4);
             user-select: none;
-            /* GPU ACCELERATION */
-            will-change: transform;
-            transform: translateZ(0);
         }
         
         /* ELECTRIC GUITARS */
@@ -91,9 +88,6 @@
             text-shadow: 0 0 25px rgba(255, 221, 0, 0.9),
                          0 0 50px rgba(255, 221, 0, 0.5);
             user-select: none;
-            /* GPU ACCELERATION */
-            will-change: transform;
-            transform: translateZ(0);
         }
 
         @keyframes pulse {
@@ -181,29 +175,25 @@
                 note.textContent = notes[Math.floor(Math.random() * notes.length)];
             }
             
-            // Initial random position
-            const startX = Math.random() * window.innerWidth;
-            const startY = Math.random() * window.innerHeight;
+            note.style.left = Math.random() * window.innerWidth + 'px';
+            note.style.top = Math.random() * window.innerHeight + 'px';
             
             const noteData = {
                 element: note,
-                x: startX,
-                y: startY,
+                x: parseFloat(note.style.left),
+                y: parseFloat(note.style.top),
                 vx: (Math.random() - 0.5) * 1,
                 vy: (Math.random() - 0.5) * 1,
                 rotation: Math.random() * 360,
                 isGuitar: isGuitar
             };
             
-            // Set initial position with transform!
-            note.style.transform = `translate(${startX}px, ${startY}px) rotate(${noteData.rotation}deg)`;
-            
             document.body.appendChild(note);
             noteElements.push(noteData);
         }
         
-        // Create initial notes - INCREASED TO 60!
-        const noteCount = window.innerWidth < 768 ? 30 : 60;
+        // Create initial notes
+        const noteCount = window.innerWidth < 768 ? 15 : 30;  // Back to original
         for (let i = 0; i < noteCount; i++) {
             createNote();
         }
@@ -222,21 +212,17 @@
             }
         });
         
-        // Animate notes - OPTIMIZED FOR PERFORMANCE!
+        // Animate notes - they flee from cursor SMOOTHLY
         function animateNotes() {
             noteElements.forEach(note => {
-                // Calculate distance from mouse - OPTIMIZED (no sqrt!)
+                // Calculate distance from mouse
                 const dx = note.x - mousePos.x;
                 const dy = note.y - mousePos.y;
-                const distanceSquared = dx * dx + dy * dy;
+                const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                // Flee from cursor if too close - using squared distance
-                const fleeRadius = 150;
-                const fleeRadiusSquared = fleeRadius * fleeRadius;
-                
-                if (distanceSquared < fleeRadiusSquared && distanceSquared > 0) {
-                    // Approximate distance for normalization (faster than sqrt)
-                    const distance = Math.sqrt(distanceSquared);
+                // Flee from cursor if too close
+                const fleeRadius = 150;  // Back to original
+                if (distance < fleeRadius && distance > 0) {
                     const force = (fleeRadius - distance) / fleeRadius;
                     note.vx += (dx / distance) * force * 0.5;
                     note.vy += (dy / distance) * force * 0.5;
@@ -245,7 +231,7 @@
                 // Apply velocity with damping
                 note.x += note.vx;
                 note.y += note.vy;
-                note.vx *= 0.95;
+                note.vx *= 0.95;  // Original damping
                 note.vy *= 0.95;
                 
                 // Add gentle floating motion
@@ -272,8 +258,10 @@
                 // Update rotation based on velocity
                 note.rotation += note.vx * 0.3;
                 
-                // GPU-ACCELERATED TRANSFORM (instead of left/top)!
-                note.element.style.transform = `translate(${note.x}px, ${note.y}px) rotate(${note.rotation}deg)`;
+                // Apply transforms
+                note.element.style.left = note.x + 'px';
+                note.element.style.top = note.y + 'px';
+                note.element.style.transform = `rotate(${note.rotation}deg)`;
             });
             
             requestAnimationFrame(animateNotes);
