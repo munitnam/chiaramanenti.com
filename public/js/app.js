@@ -1,6 +1,6 @@
 // Configuration
 let CONFIG = {
-    showreelVideoId: 'FBCdo1rn0sY',
+    showreelVideoId: 'vmid3t4YpU0',
     contactEmail: 'chiaramanenticontact@gmail.com',
     bioPath: '/assets/bio_en.txt',
     audioPath: '/assets/audio/',
