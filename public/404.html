@@ -74,7 +74,19 @@
             z-index: 5;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
                          0 0 40px rgba(255, 255, 255, 0.4);
-            transition: transform 0.3s ease-out;
+            user-select: none;
+        }
+        
+        /* ELECTRIC GUITARS */
+        .guitar {
+            position: fixed;
+            font-size: 50px;
+            color: #ffdd00;
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: 5;
+            text-shadow: 0 0 25px rgba(255, 221, 0, 0.9),
+                         0 0 50px rgba(255, 221, 0, 0.5);
             user-select: none;
         }
 
@@ -111,6 +123,10 @@
             .musical-note {
                 font-size: 30px;
             }
+            
+            .guitar {
+                font-size: 35px;
+            }
         }
     </style>
 </head>
@@ -140,14 +156,25 @@
 
         // Musical notes setup
         const notes = ['♪', '♫', '♩', '♬', '♭', '♮', '♯', '𝄞'];
+        const guitars = ['🎸', '🎸', '🎸'];  // Electric guitars!
         const noteElements = [];
         const mousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         
         // Create musical notes
         function createNote() {
             const note = document.createElement('div');
-            note.className = 'musical-note';
-            note.textContent = notes[Math.floor(Math.random() * notes.length)];
+            
+            // 25% chance of guitar, 75% musical note
+            const isGuitar = Math.random() < 0.25;
+            
+            if (isGuitar) {
+                note.className = 'guitar';
+                note.textContent = guitars[Math.floor(Math.random() * guitars.length)];
+            } else {
+                note.className = 'musical-note';
+                note.textContent = notes[Math.floor(Math.random() * notes.length)];
+            }
+            
             note.style.left = Math.random() * window.innerWidth + 'px';
             note.style.top = Math.random() * window.innerHeight + 'px';
             
@@ -155,17 +182,18 @@
                 element: note,
                 x: parseFloat(note.style.left),
                 y: parseFloat(note.style.top),
-                vx: (Math.random() - 0.5) * 2,
-                vy: (Math.random() - 0.5) * 2,
-                rotation: Math.random() * 360
+                vx: (Math.random() - 0.5) * 1,
+                vy: (Math.random() - 0.5) * 1,
+                rotation: Math.random() * 360,
+                isGuitar: isGuitar
             };
             
             document.body.appendChild(note);
             noteElements.push(noteData);
         }
         
-        // Create initial notes
-        const noteCount = window.innerWidth < 768 ? 15 : 30;
+        // Create MORE initial notes!
+        const noteCount = window.innerWidth < 768 ? 40 : 80;  // DOUBLED!
         for (let i = 0; i < noteCount; i++) {
             createNote();
         }
@@ -184,7 +212,7 @@
             }
         });
         
-        // Animate notes - they flee from cursor
+        // Animate notes - they flee from cursor SMOOTHLY
         function animateNotes() {
             noteElements.forEach(note => {
                 // Calculate distance from mouse
@@ -192,36 +220,44 @@
                 const dy = note.y - mousePos.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                // Flee from cursor if too close
-                const fleeRadius = 150;
-                if (distance < fleeRadius) {
+                // Flee from cursor if too close - SMOOTHER & LARGER RADIUS
+                const fleeRadius = note.isGuitar ? 200 : 180;  // Guitars flee more!
+                if (distance < fleeRadius && distance > 0) {
                     const force = (fleeRadius - distance) / fleeRadius;
-                    note.vx += (dx / distance) * force * 0.5;
-                    note.vy += (dy / distance) * force * 0.5;
+                    const pushStrength = note.isGuitar ? 0.8 : 0.6;  // Stronger push
+                    note.vx += (dx / distance) * force * pushStrength;
+                    note.vy += (dy / distance) * force * pushStrength;
                 }
                 
-                // Apply velocity with damping
+                // Apply velocity with LESS damping (smoother motion)
                 note.x += note.vx;
                 note.y += note.vy;
-                note.vx *= 0.95;
-                note.vy *= 0.95;
+                note.vx *= 0.97;  // Less friction = smoother
+                note.vy *= 0.97;
                 
                 // Add gentle floating motion
-                note.vy += (Math.random() - 0.5) * 0.1;
-                note.vx += (Math.random() - 0.5) * 0.1;
+                note.vy += (Math.random() - 0.5) * 0.05;
+                note.vx += (Math.random() - 0.5) * 0.05;
                 
-                // Bounce off edges
-                if (note.x < 0 || note.x > window.innerWidth) {
-                    note.vx *= -0.8;
-                    note.x = Math.max(0, Math.min(window.innerWidth, note.x));
+                // Bounce off edges softly
+                const margin = 50;
+                if (note.x < margin) {
+                    note.vx += (margin - note.x) * 0.01;
+                } else if (note.x > window.innerWidth - margin) {
+                    note.vx -= (note.x - (window.innerWidth - margin)) * 0.01;
                 }
-                if (note.y < 0 || note.y > window.innerHeight) {
-                    note.vy *= -0.8;
-                    note.y = Math.max(0, Math.min(window.innerHeight, note.y));
+                if (note.y < margin) {
+                    note.vy += (margin - note.y) * 0.01;
+                } else if (note.y > window.innerHeight - margin) {
+                    note.vy -= (note.y - (window.innerHeight - margin)) * 0.01;
                 }
                 
-                // Update rotation
-                note.rotation += note.vx * 0.5;
+                // Clamp to screen bounds
+                note.x = Math.max(0, Math.min(window.innerWidth, note.x));
+                note.y = Math.max(0, Math.min(window.innerHeight, note.y));
+                
+                // Update rotation based on velocity
+                note.rotation += note.vx * 0.3;
                 
                 // Apply transforms
                 note.element.style.left = note.x + 'px';
