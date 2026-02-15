@@ -201,7 +201,7 @@ function initShowreel() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !showreelLoaded) {
-                loadYouTubeVideo(showreelContainer, CONFIG.showreelVideoId, true);
+                loadYouTubeVideo(showreelContainer, CONFIG.showreelVideoId, false);
                 showreelLoaded = true;
             }
         });
@@ -211,11 +211,10 @@ function initShowreel() {
 }
 
 // YouTube Video Loader
-function loadYouTubeVideo(container, videoId, autoplay = false) {
+function loadYouTubeVideo(container, videoId, muted = false) {
     const iframe = document.createElement('iframe');
-    const params = autoplay 
-        ? '?autoplay=1&mute=1&enablejsapi=1&rel=0&loop=1&playlist=' + videoId 
-        : '?autoplay=1&enablejsapi=1&rel=0&loop=1&playlist=' + videoId;
+    const muteParam = muted ? '&mute=1' : '';
+    const params = `?autoplay=1${muteParam}&enablejsapi=1&rel=0&loop=1&playlist=${videoId}`;
     iframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     iframe.frameBorder = '0';
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -225,14 +224,15 @@ function loadYouTubeVideo(container, videoId, autoplay = false) {
     container.appendChild(iframe);
     
     // Add live mirrored shadow effect with sync
-    addVideoShadow(container, videoId, iframe);
+    addVideoShadow(container, videoId, iframe, muted);
 }
 
 // Add mirrored shadow effect behind video - LIVE MIRROR with SYNC
-function addVideoShadow(container, videoId, mainIframe) {
+function addVideoShadow(container, videoId, mainIframe, muted = false) {
     // Create a second iframe as the live mirror/shadow
     const shadowIframe = document.createElement('iframe');
-    const params = '?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=' + videoId;
+    const muteParam = muted ? '&mute=1' : '';
+    const params = `?autoplay=1${muteParam}&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}`;
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
