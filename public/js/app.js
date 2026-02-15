@@ -231,8 +231,8 @@ function loadYouTubeVideo(container, videoId, muted = false) {
 function addVideoShadow(container, videoId, mainIframe, muted = false) {
     // Create a second iframe as the live mirror/shadow
     const shadowIframe = document.createElement('iframe');
-    const muteParam = muted ? '&mute=1' : '';
-    const params = `?autoplay=1${muteParam}&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}`;
+    // Shadow is ALWAYS muted - it's just a visual effect
+    const params = `?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}`;
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
