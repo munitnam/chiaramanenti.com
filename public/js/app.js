@@ -770,3 +770,59 @@ function initMobileFixedBackgrounds() {
 
 // Initialize mobile fixed backgrounds
 initMobileFixedBackgrounds();
+
+// Legal Modals
+document.addEventListener('DOMContentLoaded', function() {
+    // Get modal elements
+    const legalNoticeModal = document.getElementById('legal-notice-modal');
+    const privacyPolicyModal = document.getElementById('privacy-policy-modal');
+    
+    // Get link elements
+    const legalNoticeLink = document.getElementById('legal-notice-link');
+    const privacyPolicyLink = document.getElementById('privacy-policy-link');
+    
+    // Get close buttons
+    const closeButtons = document.querySelectorAll('.close-legal-modal');
+    
+    // Open legal notice modal
+    legalNoticeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        legalNoticeModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    // Open privacy policy modal
+    privacyPolicyLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        privacyPolicyModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    // Close modals
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            legalNoticeModal.classList.remove('active');
+            privacyPolicyModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+    
+    // Close modal when clicking outside content
+    [legalNoticeModal, privacyPolicyModal].forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+    
+    // Close modal on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            legalNoticeModal.classList.remove('active');
+            privacyPolicyModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+});
