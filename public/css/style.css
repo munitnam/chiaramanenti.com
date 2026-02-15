@@ -949,7 +949,7 @@ body {
     color: var(--text-white);
     font-size: 1.1rem;
     line-height: 1.8;
-    text-align: center;
+    text-align: justify;
     max-width: 800px;
 }
 
@@ -997,7 +997,7 @@ body {
 }
 
 .logo {
-    height: 400px;
+    height: 280px;
     width: auto;
     filter: brightness(0) invert(1);
     transition: var(--transition-smooth);
