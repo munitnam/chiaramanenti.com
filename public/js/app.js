@@ -180,8 +180,8 @@ function initMenu() {
                     block: 'start'
                 });
                 
-                // Prevent hash from appearing in URL
-                history.replaceState(null, null, ' ');
+                // Prevent hash from appearing in URL - use clean pathname
+                history.replaceState(null, null, window.location.pathname);
             }
         });
     });
