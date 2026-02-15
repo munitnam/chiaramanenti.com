@@ -826,3 +826,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Dynamic copyright year and privacy policy date
+(function() {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    
+    // Set copyright year
+    const copyrightYear = document.getElementById('copyright-year');
+    if (copyrightYear) {
+        copyrightYear.textContent = currentYear;
+    }
+    
+    // Set privacy policy date (Month Year format)
+    const privacyDate = document.getElementById('privacy-date');
+    if (privacyDate) {
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        const currentMonth = monthNames[currentDate.getMonth()];
+        privacyDate.textContent = `${currentMonth} ${currentYear}`;
+    }
+})();
