@@ -666,6 +666,12 @@ function initContactForm() {
             turnstileToken: turnstileToken
         };
 
+        // Debug: Log what we're sending
+        console.log('Submitting form data:', {
+            ...formData,
+            turnstileToken: turnstileToken ? 'present' : 'MISSING'
+        });
+
         try {
             const response = await fetch('/api/contact', {
                 method: 'POST',
