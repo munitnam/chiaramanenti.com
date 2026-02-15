@@ -179,9 +179,6 @@ function initMenu() {
                     behavior: 'smooth',
                     block: 'start'
                 });
-                
-                // Prevent hash from appearing in URL - use clean pathname
-                history.replaceState(null, null, window.location.pathname);
             }
         });
     });
