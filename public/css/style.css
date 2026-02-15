@@ -1256,7 +1256,7 @@ body {
     color: rgba(255, 255, 255, 0.8);
 }
 
-.footer-credits-text {
+.footer-column .footer-credits-text {
     margin-top: 1.5rem;
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.6);
