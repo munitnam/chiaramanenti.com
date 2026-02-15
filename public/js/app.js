@@ -223,7 +223,8 @@ function initShowreel() {
 function loadYouTubeVideo(container, videoId, muted = false) {
     const iframe = document.createElement('iframe');
     const muteParam = muted ? '&mute=1' : '';
-    const params = `?autoplay=1${muteParam}&enablejsapi=1&rel=0&loop=1&playlist=${videoId}`;
+    // Minimal YouTube interface - hide logo, minimize controls
+    const params = `?autoplay=1${muteParam}&enablejsapi=1&rel=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&iv_load_policy=3`;
     iframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     iframe.frameBorder = '0';
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -241,7 +242,7 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
     // Create a second iframe as the live mirror/shadow
     const shadowIframe = document.createElement('iframe');
     // Shadow is ALWAYS muted - it's just a visual effect
-    const params = `?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}`;
+    const params = `?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}&playsinline=1&iv_load_policy=3`;
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
