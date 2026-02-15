@@ -186,6 +186,12 @@ body {
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
 }
 
+.scroll-arrow img {
+    width: 80px;
+    height: auto;
+    filter: brightness(0) invert(1);
+}
+
 .scroll-arrow:hover {
     color: var(--accent-bronze);
     transform: scale(1.2);
