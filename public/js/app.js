@@ -162,6 +162,15 @@ function initMenu() {
         document.body.style.overflow = 'auto';
     });
 
+    // Close menu when clicking outside (like legal notice modal)
+    menuOverlay.addEventListener('click', (e) => {
+        if (e.target === menuOverlay) {
+            menuOverlay.classList.remove('active');
+            menuOpen = false;
+            document.body.style.overflow = 'auto';
+        }
+    });
+
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
