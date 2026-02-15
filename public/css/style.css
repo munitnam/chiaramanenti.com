@@ -1233,7 +1233,7 @@ body {
 
 .footer-content {
     max-width: 1200px;
-    margin: 0 auto 3rem;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 3rem;
@@ -1254,6 +1254,12 @@ body {
     font-size: 0.95rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-credits-text {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .footer-column ul {
@@ -1283,19 +1289,6 @@ body {
     margin-top: 1.5rem;
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-credits {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.footer-credits p {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
 }
 
 /* Legal Modals */
