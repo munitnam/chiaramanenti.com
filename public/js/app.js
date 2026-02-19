@@ -239,6 +239,9 @@ function loadYouTubeVideo(container, videoId, muted = false) {
 
 // Add mirrored shadow effect behind video - LIVE MIRROR with SYNC
 function addVideoShadow(container, videoId, mainIframe, muted = false) {
+    // Detect mobile for opacity control
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    
     // Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
     const shadowIframe = document.createElement('iframe');
     // Shadow params: NO loop/playlist (prevents mobile autoplay), muted, no controls
@@ -249,6 +252,8 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
     shadowIframe.id = 'shadow-video-' + videoId;
     
     shadowIframe.className = 'video-shadow-mirror';
+    // Desktop: visible shadow (0.8), Mobile: hidden (0) to prevent blinking
+    const initialOpacity = isMobile ? '0' : '0.8';
     shadowIframe.style.cssText = `
         position: absolute;
         top: -60px;
@@ -256,7 +261,7 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
         width: calc(100% + 120px);
         height: calc(100% + 120px);
         filter: blur(40px) brightness(0.6) saturate(1.3);
-        opacity: 0;
+        opacity: ${initialOpacity};
         z-index: -1;
         border-radius: 20px;
         pointer-events: none;
@@ -337,9 +342,9 @@ function initVideoSync(mainIframe, shadowIframe) {
             // Playing
             if (event.data === 1) {
                 if (shadowPlayer && shadowPlayer.playVideo) {
-                    // Show shadow when main starts playing
+                    // Show shadow when main starts playing (only needed on mobile where it starts hidden)
                     const shadowIframe = document.getElementById('shadow-video-' + shadowPlayer.getVideoData().video_id);
-                    if (shadowIframe) {
+                    if (shadowIframe && shadowIframe.style.opacity === '0') {
                         shadowIframe.style.opacity = '0.8';
                     }
                     shadowPlayer.playVideo();
