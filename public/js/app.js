@@ -223,8 +223,8 @@ function initShowreel() {
 function loadYouTubeVideo(container, videoId, muted = false) {
     const iframe = document.createElement('iframe');
     const muteParam = muted ? '&mute=1' : '';
-    // No autoplay - user clicks to play (prevents black screen on slow connections)
-    const params = `?${muteParam}&enablejsapi=1&rel=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&iv_load_policy=3`;
+    // No autoplay, no loop - user clicks to play, consistent behavior on all devices
+    const params = `?${muteParam}&enablejsapi=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3`;
     iframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     iframe.frameBorder = '0';
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
