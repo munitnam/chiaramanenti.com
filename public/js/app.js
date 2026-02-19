@@ -223,8 +223,8 @@ function initShowreel() {
 function loadYouTubeVideo(container, videoId, muted = false) {
     const iframe = document.createElement('iframe');
     const muteParam = muted ? '&mute=1' : '';
-    // Minimal YouTube interface - hide logo, minimize controls
-    const params = `?autoplay=1${muteParam}&enablejsapi=1&rel=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&iv_load_policy=3`;
+    // No autoplay - user clicks to play (prevents black screen on slow connections)
+    const params = `?${muteParam}&enablejsapi=1&rel=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&iv_load_policy=3`;
     iframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     iframe.frameBorder = '0';
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -239,10 +239,10 @@ function loadYouTubeVideo(container, videoId, muted = false) {
 
 // Add mirrored shadow effect behind video - LIVE MIRROR with SYNC
 function addVideoShadow(container, videoId, mainIframe, muted = false) {
-    // Create a second iframe as the live mirror/shadow
+    // Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
     const shadowIframe = document.createElement('iframe');
-    // Shadow is ALWAYS muted - it's just a visual effect
-    const params = `?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}&playsinline=1&iv_load_policy=3`;
+    // Shadow is ALWAYS muted - it's just a visual effect, no autoplay (waits for user to click main video)
+    const params = `?mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}&playsinline=1&iv_load_policy=3`;
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';

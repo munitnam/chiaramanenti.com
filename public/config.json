@@ -1,7 +1,7 @@
 {
   "showreel": {
     "videoId": "vmid3t4YpU0",
-    "autoplay": true,
+    "autoplay": false,
     "mute": false
   },
   "scoringVideos": [
