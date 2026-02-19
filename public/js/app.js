@@ -362,9 +362,18 @@ function initVideoSync(mainIframe, shadowIframe) {
     }
     
     function onShadowPlayerStateChange(event) {
-        // Shadow should never trigger main player changes
-        // Just log for debugging if needed
-        // console.log('Shadow state:', event.data);
+        // If shadow tries to play but main is not playing, pause it (prevents blink loop on mobile)
+        if (event.data === 1 && mainPlayer && mainPlayer.getPlayerState) {
+            try {
+                const mainState = mainPlayer.getPlayerState();
+                // Main is not playing (paused=2, unstarted=-1, cued=5, ended=0)
+                if (mainState !== 1) {
+                    shadowPlayer.pauseVideo();
+                }
+            } catch (e) {
+                // Ignore errors
+            }
+        }
     }
     
     // Start initialization with longer delay for mobile
