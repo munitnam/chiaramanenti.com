@@ -239,7 +239,16 @@ function loadYouTubeVideo(container, videoId, muted = false) {
 
 // Add mirrored shadow effect behind video - LIVE MIRROR with SYNC
 function addVideoShadow(container, videoId, mainIframe, muted = false) {
-    // Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
+    // Detect mobile - YouTube iframe API doesn't work reliably on mobile browsers
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    
+    // On mobile: Skip shadow effect (API sync doesn't work, causes desync issues)
+    if (isMobile) {
+        console.log('Mobile detected - shadow effect disabled for better UX');
+        return;
+    }
+    
+    // Desktop only: Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
     const shadowIframe = document.createElement('iframe');
     // Shadow is ALWAYS muted - it's just a visual effect, no autoplay (waits for user to click main video)
     const params = `?mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}&playsinline=1&iv_load_policy=3`;
@@ -265,7 +274,7 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
     // Insert shadow before main video
     container.insertBefore(shadowIframe, container.firstChild);
     
-    // Sync videos using YouTube API
+    // Sync videos using YouTube API (desktop only)
     setTimeout(() => {
         initVideoSync(mainIframe, shadowIframe);
     }, 1000);
