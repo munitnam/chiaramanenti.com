@@ -1,6 +1,24 @@
 # Custom 404 error page
 ErrorDocument 404 /404.html
 
+# Security Headers (SEO & Protection)
+<IfModule mod_headers.c>
+  # Prevent clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+  
+  # XSS Protection
+  Header always set X-XSS-Protection "1; mode=block"
+  
+  # Referrer Policy
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  
+  # Permissions Policy (restrict sensitive APIs)
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+  
+  # Force HTTPS (HSTS)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
 # Enable rewrite engine
 <IfModule mod_rewrite.c>
   RewriteEngine On
