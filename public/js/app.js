@@ -224,11 +224,9 @@ function loadYouTubeVideo(container, videoId, muted = false) {
     const iframe = document.createElement('iframe');
     const muteParam = muted ? '&mute=1' : '';
     
-    // Detect mobile for autoplay decision
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-    
-    // Desktop: autoplay with loop, Mobile: manual play (no autoplay)
-    const autoplayParam = isMobile ? '' : '&autoplay=1&loop=1&playlist=' + videoId;
+    // Autoplay with sound on all devices - will work on Safari mobile (after scroll interaction) and desktop
+    // Chrome Android may block due to no MEI, but user can manually play
+    const autoplayParam = '&autoplay=1&loop=1&playlist=' + videoId;
     const params = `?${muteParam}${autoplayParam}&enablejsapi=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3`;
     iframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     iframe.frameBorder = '0';
