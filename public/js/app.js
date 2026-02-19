@@ -256,10 +256,11 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
         width: calc(100% + 120px);
         height: calc(100% + 120px);
         filter: blur(40px) brightness(0.6) saturate(1.3);
-        opacity: 0.8;
+        opacity: 0;
         z-index: -1;
         border-radius: 20px;
         pointer-events: none;
+        transition: opacity 0.5s ease;
     `;
     
     // Insert shadow before main video
@@ -336,6 +337,11 @@ function initVideoSync(mainIframe, shadowIframe) {
             // Playing
             if (event.data === 1) {
                 if (shadowPlayer && shadowPlayer.playVideo) {
+                    // Show shadow when main starts playing
+                    const shadowIframe = document.getElementById('shadow-video-' + shadowPlayer.getVideoData().video_id);
+                    if (shadowIframe) {
+                        shadowIframe.style.opacity = '0.8';
+                    }
                     shadowPlayer.playVideo();
                     const currentTime = mainPlayer.getCurrentTime();
                     shadowPlayer.seekTo(currentTime, true);
