@@ -565,56 +565,19 @@ function createAudioTrack(container, audioData) {
     waveform.className = 'waveform';
     waveform.setAttribute('data-filename', audioData.filename);
 
-    // Generate flat placeholder bars (will animate to real waveform after audio loads)
-    for (let i = 0; i < 300; i++) {
-        const bar = document.createElement('div');
-        bar.className = 'waveform-bar';
-        bar.style.height = '30%'; // Flat neutral state
-        bar.style.opacity = '0.3'; // Dimmed to show it's not loaded
-        waveform.appendChild(bar);
-    }
+    // Use pre-generated static waveform image
+    const waveformImg = document.createElement('img');
+    waveformImg.src = `/assets/waveforms/${audioData.filename.replace('.mp3', '-waveform.png')}`;
+    waveformImg.alt = `${audioData.title} waveform`;
+    waveformImg.className = 'waveform-image';
+    waveform.appendChild(waveformImg);
 
     waveformContainer.appendChild(progress);
     waveformContainer.appendChild(waveform);
 
-    // Function to generate real waveform from audio buffer
-    function generateRealWaveform(audioBuffer) {
-        const rawData = audioBuffer.getChannelData(0); // Get mono channel
-        const samples = 300; // Number of bars for SoundCloud-style detail
-        const blockSize = Math.floor(rawData.length / samples);
-        const bars = waveform.querySelectorAll('.waveform-bar');
-        
-        for (let i = 0; i < samples; i++) {
-            let sum = 0;
-            for (let j = 0; j < blockSize; j++) {
-                sum += Math.abs(rawData[(i * blockSize) + j]);
-            }
-            const average = sum / blockSize;
-            const height = Math.max(10, Math.min(100, average * 300)); // Scale to 10-100%
-            
-            if (bars[i]) {
-                bars[i].style.transition = 'height 0.3s ease-out, opacity 0.3s ease-out';
-                bars[i].style.height = `${height}%`;
-                bars[i].style.opacity = '1'; // Full opacity when real data loaded
-            }
-        }
-    }
-
-    // Load audio immediately on page load (no lazy loading)
+    // Create audio element (streams on play, doesn't preload)
     const audio = new Audio(`${CONFIG.audioPath}${audioData.filename}`);
     let audioLoaded = false;
-
-    // Generate real waveform using Web Audio API
-    fetch(`${CONFIG.audioPath}${audioData.filename}`)
-        .then(response => response.arrayBuffer())
-        .then(arrayBuffer => {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            return audioContext.decodeAudioData(arrayBuffer);
-        })
-        .then(audioBuffer => {
-            generateRealWaveform(audioBuffer);
-        })
-        .catch(err => console.log('Waveform generation error:', err));
 
     // Set up event listeners
     audio.addEventListener('canplaythrough', () => {
