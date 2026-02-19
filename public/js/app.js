@@ -239,21 +239,25 @@ function loadYouTubeVideo(container, videoId, muted = false) {
 
 // Add mirrored shadow effect behind video - LIVE MIRROR with SYNC
 function addVideoShadow(container, videoId, mainIframe, muted = false) {
-    // Detect mobile for opacity control
+    // Detect mobile - disable shadow entirely on mobile for better performance
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
     
-    // Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
+    // Skip shadow on mobile: faster loading, no sync issues, no dark overlay flashes
+    if (isMobile) {
+        console.log('Mobile detected - shadow disabled for optimal performance');
+        return;
+    }
+    
+    // Desktop only: Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
     const shadowIframe = document.createElement('iframe');
-    // Shadow mirrors main video - same params except muted (no controls=0, reflects main player UI)
-    const params = `?mute=1&enablejsapi=1&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`;
+    // Shadow params: controls=0 for clean sync, muted, no user interaction
+    const params = `?mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`;
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     shadowIframe.id = 'shadow-video-' + videoId;
     
     shadowIframe.className = 'video-shadow-mirror';
-    // Desktop: visible shadow (0.8), Mobile: hidden (0) to prevent blinking
-    const initialOpacity = isMobile ? '0' : '0.8';
     shadowIframe.style.cssText = `
         position: absolute;
         top: -60px;
@@ -261,7 +265,7 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
         width: calc(100% + 120px);
         height: calc(100% + 120px);
         filter: blur(40px) brightness(0.6) saturate(1.3);
-        opacity: ${initialOpacity};
+        opacity: 0.8;
         z-index: -1;
         border-radius: 20px;
         pointer-events: none;
@@ -271,7 +275,7 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
     // Insert shadow before main video
     container.insertBefore(shadowIframe, container.firstChild);
     
-    // Sync videos using YouTube API - works on both desktop and mobile
+    // Sync videos using YouTube API - desktop only
     setTimeout(() => {
         initVideoSync(mainIframe, shadowIframe);
     }, 1000);
