@@ -239,19 +239,10 @@ function loadYouTubeVideo(container, videoId, muted = false) {
 
 // Add mirrored shadow effect behind video - LIVE MIRROR with SYNC
 function addVideoShadow(container, videoId, mainIframe, muted = false) {
-    // Detect mobile - YouTube iframe API doesn't work reliably on mobile browsers
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-    
-    // On mobile: Skip shadow effect (API sync doesn't work, causes desync issues)
-    if (isMobile) {
-        console.log('Mobile detected - shadow effect disabled for better UX');
-        return;
-    }
-    
-    // Desktop only: Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
+    // Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
     const shadowIframe = document.createElement('iframe');
-    // Shadow is ALWAYS muted - it's just a visual effect, no autoplay (waits for user to click main video)
-    const params = `?mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${videoId}&playsinline=1&iv_load_policy=3`;
+    // Shadow params: NO loop/playlist (prevents mobile autoplay), muted, no controls
+    const params = `?mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`;
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -274,7 +265,7 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
     // Insert shadow before main video
     container.insertBefore(shadowIframe, container.firstChild);
     
-    // Sync videos using YouTube API (desktop only)
+    // Sync videos using YouTube API - works on both desktop and mobile
     setTimeout(() => {
         initVideoSync(mainIframe, shadowIframe);
     }, 1000);
@@ -283,6 +274,7 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
 // Synchronize main video with shadow video using YouTube iframe API
 function initVideoSync(mainIframe, shadowIframe) {
     let mainPlayer, shadowPlayer;
+    let isSyncing = false; // Prevent feedback loops
     
     // Load YouTube iframe API if not already loaded
     if (!window.YT) {
@@ -302,37 +294,44 @@ function initVideoSync(mainIframe, shadowIframe) {
         try {
             mainPlayer = new YT.Player(mainIframe.id, {
                 events: {
-                    'onStateChange': onPlayerStateChange,
+                    'onStateChange': onMainPlayerStateChange,
                     'onReady': onPlayerReady
                 }
             });
             
-            shadowPlayer = new YT.Player(shadowIframe.id);
+            shadowPlayer = new YT.Player(shadowIframe.id, {
+                events: {
+                    'onStateChange': onShadowPlayerStateChange
+                }
+            });
         } catch (e) {
             console.log('Error initializing players:', e);
         }
     };
     
     function onPlayerReady() {
-        // Start syncing - check every 50ms for ultra-tight synchronization
+        // Start syncing - check every 100ms for synchronization (more mobile-friendly than 50ms)
         setInterval(() => {
-            if (mainPlayer && shadowPlayer && mainPlayer.getCurrentTime) {
+            if (!isSyncing && mainPlayer && shadowPlayer && mainPlayer.getCurrentTime) {
                 try {
                     const mainTime = mainPlayer.getCurrentTime();
                     const shadowTime = shadowPlayer.getCurrentTime();
                     
-                    // If difference > 0.2 second, sync
-                    if (Math.abs(mainTime - shadowTime) > 0.2) {
+                    // If difference > 0.3 second, sync
+                    if (Math.abs(mainTime - shadowTime) > 0.3) {
                         shadowPlayer.seekTo(mainTime, true);
                     }
                 } catch (e) {
                     // Ignore errors
                 }
             }
-        }, 50);
+        }, 100);
     }
     
-    function onPlayerStateChange(event) {
+    function onMainPlayerStateChange(event) {
+        if (isSyncing) return; // Prevent feedback loop
+        isSyncing = true;
+        
         try {
             // Playing
             if (event.data === 1) {
@@ -348,24 +347,28 @@ function initVideoSync(mainIframe, shadowIframe) {
                     shadowPlayer.pauseVideo();
                 }
             }
-            // Ended - replay to prevent end screen
+            // Ended
             else if (event.data === 0) {
-                if (mainPlayer && mainPlayer.seekTo) {
-                    mainPlayer.seekTo(0);
-                    mainPlayer.pauseVideo();
-                }
-                if (shadowPlayer && shadowPlayer.seekTo) {
-                    shadowPlayer.seekTo(0);
+                if (shadowPlayer && shadowPlayer.pauseVideo) {
                     shadowPlayer.pauseVideo();
+                    shadowPlayer.seekTo(0);
                 }
             }
         } catch (e) {
-            console.log('Player state change error:', e);
+            console.log('Main player state change error:', e);
         }
+        
+        setTimeout(() => { isSyncing = false; }, 200);
     }
     
-    // Start initialization
-    setTimeout(initPlayers, 500);
+    function onShadowPlayerStateChange(event) {
+        // Shadow should never trigger main player changes
+        // Just log for debugging if needed
+        // console.log('Shadow state:', event.data);
+    }
+    
+    // Start initialization with longer delay for mobile
+    setTimeout(initPlayers, 1000);
 }
 
 // Carousel
