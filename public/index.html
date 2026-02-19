@@ -51,20 +51,28 @@
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     
-    <!-- Structured Data for SEO -->
+    <!-- Structured Data for SEO (Enhanced for Knowledge Graph) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
+      "@type": ["Person", "MusicGroup"],
       "name": "Chiara Manenti",
-      "jobTitle": "Guitarist",
-      "description": "Professional guitarist specializing in film scoring and session guitar work.",
+      "jobTitle": "Film Composer and Guitarist",
+      "description": "Professional guitarist and composer specializing in film scoring, video game music, and session guitar work.",
       "url": "https://chiaramanenti.com",
       "image": "https://chiaramanenti.com/assets/images/top_image.jpg",
-      "knowsAbout": ["Guitar", "Film Score", "Music Composition", "Session Recording"],
+      "sameAs": [
+        "https://www.youtube.com/@chiaramanenti4946",
+        "https://www.instagram.com/chiaramanentimusic/",
+        "https://www.facebook.com/ChiaraManentiMusic/",
+        "https://fr.linkedin.com/in/chiara-manenti-144840a5",
+        "https://www.tiktok.com/@chiaramanentimusic"
+      ],
+      "genre": ["Film Score", "Video Game Music", "Classical Guitar", "Contemporary Classical"],
+      "knowsAbout": ["Guitar", "Film Score", "Music Composition", "Session Recording", "Video Game Music"],
       "hasOccupation": {
         "@type": "Occupation",
-        "name": "Guitarist",
+        "name": "Film Composer and Guitarist",
         "occupationalCategory": "Musician"
       }
     }
