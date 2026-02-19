@@ -223,8 +223,13 @@ function initShowreel() {
 function loadYouTubeVideo(container, videoId, muted = false) {
     const iframe = document.createElement('iframe');
     const muteParam = muted ? '&mute=1' : '';
-    // No autoplay, no loop - user clicks to play, consistent behavior on all devices
-    const params = `?${muteParam}&enablejsapi=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3`;
+    
+    // Detect mobile for autoplay decision
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    
+    // Desktop: autoplay with loop, Mobile: manual play (no autoplay)
+    const autoplayParam = isMobile ? '' : '&autoplay=1&loop=1&playlist=' + videoId;
+    const params = `?${muteParam}${autoplayParam}&enablejsapi=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3`;
     iframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     iframe.frameBorder = '0';
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -250,8 +255,8 @@ function addVideoShadow(container, videoId, mainIframe, muted = false) {
     
     // Desktop only: Create a second iframe as the live mirror/shadow (blurred, bigger, shows around main)
     const shadowIframe = document.createElement('iframe');
-    // Shadow params: controls=0 for clean sync, muted, no user interaction
-    const params = `?mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`;
+    // Shadow params: controls=0 for clean sync, muted, autoplay+loop to match main, no user interaction
+    const params = `?autoplay=1&mute=1&loop=1&playlist=${videoId}&enablejsapi=1&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`;
     shadowIframe.src = `https://www.youtube.com/embed/${videoId}${params}`;
     shadowIframe.frameBorder = '0';
     shadowIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
