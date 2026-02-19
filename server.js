@@ -10,6 +10,27 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Security Headers (SEO & Protection)
+app.use((req, res, next) => {
+    // Prevent clickjacking
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    
+    // XSS Protection
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    
+    // Referrer Policy
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    
+    // Permissions Policy (restrict sensitive APIs)
+    res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()');
+    
+    // Force HTTPS (HSTS)
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    
+    next();
+});
+
 app.use(express.static('public'));
 
 // Serve assets - these are now in public/assets
